@@ -1,0 +1,15 @@
+Thumbs.db
+.DS_Store
+desktop.ini
+node_modules/
+.vercel/
+
+# documents de travail — prives, jamais dans le depot public
+BIBLE-HISTOIRE.md
+MEGA-PROMPT.md
+PROMPTS-VISUELS.md
+PROMPTS-AUDIO.md
+A-COPIER-COLLER.md
+LISEZMOI.md
+CLAUDE.md
+assets/_references/

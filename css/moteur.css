@@ -1,0 +1,386 @@
+/* ============================================================
+   MOTEUR — la scène de visual novel
+   ============================================================ */
+
+.scene {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: var(--fond-profond);
+}
+
+/* ---------- décors ---------- */
+.scene__decors { position: absolute; inset: 0; }
+
+.decor {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform-origin: center;
+  opacity: 0;
+  transition: opacity var(--d-scene) var(--courbe);
+  animation: ken-burns 34s var(--courbe) infinite alternate;
+  will-change: opacity, transform;
+}
+.decor--visible { opacity: 1; }
+
+/* ---------- sprites ----------
+   Ancrés en bas : la boîte de dialogue passe par-dessus et masque
+   la coupure du buste. C'est ce qui permet d'utiliser des sprites
+   courts sans que ça se voie. */
+.scene__sprites {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.sprite {
+  position: absolute;
+  bottom: 0;
+  height: var(--h-sprite);
+  width: auto;
+  object-fit: contain;
+  object-position: bottom center;
+  filter: var(--ombre-sprite);
+  opacity: 0;
+  transition: opacity var(--d-std) var(--courbe),
+              translate var(--d-std) var(--courbe),
+              filter var(--d-std) var(--courbe);
+  will-change: opacity, translate;
+}
+.sprite--visible { opacity: 1; }
+
+/* Le placement passe par `translate` et non par `transform` :
+   l'animation « respire » pilote `transform` et écraserait le centrage. */
+.sprite--gauche  { left: 4%;  translate: -14px 0; }
+.sprite--centre  { left: 50%; translate: -50% 0; }
+.sprite--droite  { right: 4%; translate: 14px 0; }
+
+.sprite--visible.sprite--gauche { translate: 0 0; }
+.sprite--visible.sprite--droite { translate: 0 0; }
+.sprite--visible.sprite--centre { translate: -50% 0; }
+
+/* qui ne parle pas s'efface un peu */
+.sprite--recule { filter: var(--ombre-sprite) brightness(.74) saturate(.85); }
+
+.sprite--respire { animation: respire 4.5s ease-in-out infinite alternate; }
+
+/* ---------- voile & grain ---------- */
+.scene__voile {
+  position: absolute;
+  inset: 0;
+  background: var(--voile);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--d-scene) var(--courbe);
+}
+.scene__voile--noir   { opacity: 1; background: #000; }
+.scene__voile--doux   { opacity: 1; }
+.scene__voile--flash  { opacity: 1; background: #fff; animation: flash-blanc .5s ease-out both; }
+
+.scene__grain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: var(--grain);
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ---------- illustration plein écran ---------- */
+.cg {
+  position: absolute;
+  inset: 0;
+  z-index: 30;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  background: var(--fond-profond);
+  animation: apparait var(--d-scene) var(--courbe) both;
+}
+.cg__img { width: 100%; height: 100%; object-fit: cover; }
+.cg__legende {
+  position: absolute;
+  bottom: clamp(1.5rem, 5vh, 3rem);
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--titre);
+  font-size: var(--t-md);
+  font-style: italic;
+  color: #fff;
+  text-shadow: 0 1px 10px rgba(0, 0, 0, .85);
+  animation: monte var(--d-chap) var(--courbe) both;
+  animation-delay: .5s;
+}
+
+/* ---------- carton de date ---------- */
+.carton {
+  position: absolute;
+  inset: 0;
+  z-index: 32;
+  display: grid;
+  place-content: center;
+  gap: var(--e-3);
+  text-align: center;
+  padding: var(--e-6);
+  background: var(--fond-profond);
+  animation: apparait var(--d-scene) var(--courbe) both;
+}
+.carton__texte {
+  font-family: var(--titre);
+  font-size: var(--t-lg);
+  font-weight: 400;
+  line-height: 1.05;
+  color: var(--encre);
+  animation: monte 1s var(--courbe) both;
+}
+.carton__sous {
+  font-size: var(--t-base);
+  font-style: italic;
+  color: var(--encre-douce);
+  animation: monte 1s var(--courbe) both;
+  animation-delay: .25s;
+}
+
+/* ---------- HUD ---------- */
+.hud {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--e-4);
+  padding: max(var(--e-3), env(safe-area-inset-top)) var(--e-4) var(--e-5);
+  background: linear-gradient(to bottom, rgba(0,0,0,.34), transparent);
+  pointer-events: none;
+}
+.hud > * { pointer-events: auto; }
+
+.hud__chapitre {
+  font-family: var(--titre);
+  font-size: var(--t-sm);
+  font-style: italic;
+  color: rgba(255, 255, 255, .88);
+  text-shadow: 0 1px 6px rgba(0, 0, 0, .7);
+}
+
+.hud__droite { display: flex; align-items: center; gap: var(--e-3); }
+
+.hud__coeur { display: flex; align-items: center; gap: var(--e-2); }
+.hud__coeur svg { width: 18px; height: 17px; overflow: visible; }
+.coeur__fond  { fill: none; stroke: rgba(255,255,255,.7); stroke-width: 1.3; }
+.coeur__plein { fill: rgba(255,255,255,.9); transition: none; }
+.hud__coeur--bat svg { animation: battement .5s var(--courbe); }
+
+.hud__palier {
+  font-size: var(--t-sm);
+  font-style: italic;
+  color: rgba(255, 255, 255, .82);
+  text-shadow: 0 1px 6px rgba(0, 0, 0, .7);
+}
+
+.hud__menu {
+  display: grid;
+  gap: 4px;
+  padding: 8px 6px;
+}
+.hud__menu span {
+  display: block;
+  width: 20px; height: 2px;
+  background: #fff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, .5);
+  transition: transform var(--d-micro) var(--courbe);
+}
+.hud__menu:hover span:nth-child(2) { transform: translateX(4px); }
+
+/* ---------- boîte de dialogue ---------- */
+.boite {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  z-index: 25;
+  cursor: pointer;
+  min-height: var(--h-boite);
+  padding: var(--e-5) clamp(var(--e-4), 6vw, var(--e-8))
+           max(var(--e-5), env(safe-area-inset-bottom)) ;
+  background: var(--panneau);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-top: 1px solid var(--trait-fort);
+  transition: opacity var(--d-std) var(--courbe),
+              transform var(--d-std) var(--courbe);
+}
+.boite--cachee {
+  opacity: 0;
+  transform: translateY(30px);
+  pointer-events: none;
+}
+
+/* Attribution de réplique, comme dans un roman : le prénom au-dessus
+   du texte, en italique. Pas de pastille arrondie remplie de couleur. */
+.boite__nom {
+  max-width: 62ch;
+  margin: 0 auto var(--e-2);
+  font-family: var(--titre);
+  font-size: var(--t-md);
+  font-style: italic;
+  color: var(--accent);
+}
+
+.boite__corps { max-width: 62ch; margin-inline: auto; }
+
+.boite__texte {
+  font-size: var(--t-md);
+  line-height: 1.62;
+  color: var(--encre);
+  min-height: 2.7em;
+}
+.boite__texte .curseur {
+  display: inline-block;
+  width: .5ch;
+  opacity: .45;
+}
+
+/* narration et pensée */
+.boite--narration .boite__texte { color: var(--encre-douce); }
+/* La pensée est en italique, sans filet coloré à gauche :
+   le décalage et l'italique suffisent. */
+.boite--pensee .boite__texte {
+  font-style: italic;
+  color: var(--encre-douce);
+  margin-left: var(--e-5);
+}
+
+.boite__suite {
+  position: absolute;
+  right: clamp(var(--e-4), 5vw, var(--e-6));
+  bottom: max(var(--e-3), env(safe-area-inset-bottom));
+  width: 8px; height: 8px;
+  border-right: 1px solid var(--encre-douce);
+  border-bottom: 1px solid var(--encre-douce);
+  transform: rotate(45deg);
+  animation: pulse-chevron 1.5s ease-in-out infinite;
+  opacity: 0;
+  transition: opacity var(--d-micro);
+}
+.boite__suite--visible { opacity: 1; }
+
+/* ---------- choix ---------- */
+.choix {
+  position: absolute;
+  inset: 0;
+  z-index: 28;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: var(--e-4);
+  padding: var(--e-6) var(--e-4);
+  background: var(--scrim);
+  animation: apparait var(--d-std) var(--courbe) both;
+}
+
+.choix__question {
+  max-width: 42ch;
+  text-align: center;
+  font-family: var(--titre);
+  font-size: var(--t-lg);
+  line-height: 1.15;
+  color: #fff;
+  text-shadow: 0 1px 12px rgba(0, 0, 0, .7);
+  margin-bottom: var(--e-3);
+}
+
+.choix__liste {
+  display: grid;
+  gap: var(--e-3);
+  width: min(100%, 46rem);
+}
+
+/* Options : des lignes de texte dans un cadre d'un pixel, qui s'inversent
+   au survol. Pas de filet coloré à gauche — c'est LE tic à éviter. */
+.option {
+  display: block;
+  width: 100%;
+  padding: var(--e-4) var(--e-5);
+  text-align: left;
+  font-size: var(--t-base);
+  line-height: 1.5;
+  color: var(--encre);
+  background: var(--panneau);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid var(--trait-fort);
+  border-radius: var(--r-md);
+  transition: background var(--d-micro), color var(--d-micro);
+  animation: monte var(--d-std) var(--courbe) both;
+}
+.option:hover, .option:focus-visible {
+  background: var(--encre);
+  color: var(--fond);
+}
+.option--lue::after {
+  content: "· déjà lu";
+  float: right;
+  font-size: var(--t-sm);
+  font-style: italic;
+  color: var(--encre-douce);
+  opacity: .7;
+}
+.option:hover.option--lue::after { color: var(--fond); opacity: .5; }
+
+/* ---------- zone d'avance ---------- */
+.scene__avancer {
+  position: absolute;
+  inset: 0;
+  z-index: 22;
+  background: transparent;
+}
+.scene__avancer[hidden] { display: none !important; }
+
+/* ---------- toast ---------- */
+.toast {
+  position: absolute;
+  z-index: 40;
+  top: max(var(--e-6), calc(env(safe-area-inset-top) + var(--e-6)));
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: var(--e-3);
+  padding: var(--e-2) var(--e-5) var(--e-2) var(--e-2);
+  background: var(--panneau);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid var(--trait-fort);
+  border-radius: var(--r-md);
+  animation: monte var(--d-std) var(--courbe) both;
+}
+.toast__img {
+  width: 44px; height: 44px;
+  border-radius: var(--r-sm);
+  object-fit: cover;
+}
+.toast__sur {
+  font-size: var(--t-sm);
+  font-style: italic;
+  color: var(--encre-douce);
+}
+.toast__titre { font-family: var(--titre); font-size: var(--t-md); }
+
+/* ---------- adaptations ---------- */
+@media (orientation: portrait) {
+  :root { --h-sprite: 64vh; --h-boite: clamp(148px, 22vh, 200px); }
+  .sprite--gauche { left: -2%; }
+  .sprite--droite { right: -2%; }
+}
+
+@media (max-width: 480px) {
+  .boite { padding-inline: var(--e-4); }
+  .hud__palier { display: none; }
+}
+
+@media (min-width: 1100px) {
+  :root { --h-sprite: 68vh; }
+}

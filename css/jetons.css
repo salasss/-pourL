@@ -1,0 +1,124 @@
+/* ============================================================
+   JETONS — design system
+
+   Parti pris : un livre, pas une application web.
+   Corps de texte en serif, aplats francs, filets d'un pixel,
+   aucune ombre portée, aucun coin arrondi décoratif.
+   ============================================================ */
+
+:root {
+  /* ---------- typographie ----------
+     Titres : Instrument Serif — contrasté, éditorial.
+     Texte  : Newsreader — un serif dessiné pour être lu longtemps.
+     Le sans ne sert qu'aux micro-étiquettes fonctionnelles. */
+  --titre: "Instrument Serif", "Times New Roman", Georgia, serif;
+  --corps: "Newsreader", Georgia, "Times New Roman", serif;
+  --sans:  ui-sans-serif, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  --t-xs:   clamp(.74rem, .7rem + .2vw, .82rem);
+  --t-sm:   clamp(.88rem, .84rem + .25vw, .98rem);
+  --t-base: clamp(1.05rem, 1rem + .35vw, 1.2rem);
+  --t-md:   clamp(1.2rem, 1.08rem + .55vw, 1.48rem);
+  --t-lg:   clamp(1.7rem, 1.3rem + 1.8vw, 2.8rem);
+  --t-xl:   clamp(2.6rem, 1.6rem + 4.4vw, 5.6rem);
+
+  /* ---------- espacements ---------- */
+  --e-1: .25rem;  --e-2: .5rem;   --e-3: .75rem;
+  --e-4: 1rem;    --e-5: 1.5rem;  --e-6: 2rem;
+  --e-7: 3rem;    --e-8: 4.5rem;
+
+  /* ---------- rayons : presque nuls ---------- */
+  --r-sm: 1px; --r-md: 2px; --r-lg: 2px; --r-xl: 3px;
+
+  /* ---------- durées ---------- */
+  --d-micro: 120ms;
+  --d-std:   300ms;
+  --d-scene: 800ms;
+  --d-chap:  1600ms;
+  --courbe:  cubic-bezier(.22, .61, .36, 1);
+
+  /* ---------- mise en page de la scène ---------- */
+  --h-sprite: 62vh;
+  --h-boite:  clamp(132px, 19vh, 188px);
+}
+
+/* ---------- PEAU « SOUVENIR » — les chapitres réels ----------
+   Papier neutre, à peine chaud. L'ocre est rare : une chose à la fois. */
+.peau-souvenir {
+  --fond:         #f3f0ea;
+  --fond-profond: #e4e0d6;
+  --encre:        #191714;
+  --encre-douce:  #6a635a;
+  --accent:       #8a6a1e;   /* ocre profond, pas un jaune vif */
+  --accent-vif:   #a5811f;
+  --regard:       #3d6644;   /* ses yeux */
+  --alerte:       #a53c27;   /* la boîte Djezzy */
+  --voile:        rgba(25, 23, 20, .5);
+
+  --panneau:      rgba(243, 240, 234, .965);
+  --trait:        rgba(25, 23, 20, .17);
+  --trait-fort:   rgba(25, 23, 20, .38);
+  --ombre-sprite: drop-shadow(0 10px 16px rgba(25, 23, 20, .22));
+  --grain:        .05;
+  --scrim:        rgba(25, 23, 20, .52);
+}
+
+/* ---------- PEAU « CENDRES » — l'arc dark fantasy ---------- */
+.peau-cendres {
+  --fond:         #101317;
+  --fond-profond: #07090c;
+  --encre:        #d9d5cc;
+  --encre-douce:  #8a8378;
+  --accent:       #b3924b;
+  --accent-vif:   #cfa95c;
+  --regard:       #6fae7d;
+  --alerte:       #8a3325;
+  --voile:        rgba(7, 9, 12, .66);
+
+  --panneau:      rgba(16, 19, 23, .955);
+  --trait:        rgba(217, 213, 204, .19);
+  --trait-fort:   rgba(217, 213, 204, .4);
+  --ombre-sprite: drop-shadow(0 14px 20px rgba(0, 0, 0, .55));
+  --grain:        .08;
+  --scrim:        rgba(7, 9, 12, .62);
+}
+
+body {
+  font-family: var(--corps);
+  font-size: var(--t-base);
+  font-weight: 400;
+  line-height: 1.66;
+  color: var(--encre);
+  background: var(--fond-profond);
+  transition: background var(--d-chap) var(--courbe),
+              color var(--d-chap) var(--courbe);
+}
+
+/* Micro-étiquette : en italique, pas en capitales espacées.
+   Les capitales à .2em d'interlettrage sont le tic le plus reconnaissable
+   des interfaces générées — on ne s'en sert nulle part. */
+.etiquette {
+  font-family: var(--corps);
+  font-style: italic;
+  font-size: var(--t-sm);
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--encre-douce);
+}
+
+.jeu {
+  position: relative;
+  width: 100%;
+  height: 100dvh;
+  overflow: hidden;
+  background: var(--fond-profond);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}

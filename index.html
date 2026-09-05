@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="fr" class="peau-souvenir">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f3f0ea">
+<title>pourL</title>
+<meta name="description" content="Un petit jeu à lire.">
+<meta property="og:title" content="pourL">
+<meta property="og:description" content="Un petit jeu à lire.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='8' y='6' width='48' height='52' rx='6' fill='%23a53c27'/%3E%3Crect x='30' y='6' width='4' height='52' fill='%237d2b1c'/%3E%3Ccircle cx='32' cy='34' r='5' fill='%233a2a24'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/reset.css">
+<link rel="stylesheet" href="css/jetons.css">
+<link rel="stylesheet" href="css/animations.css">
+<link rel="stylesheet" href="css/moteur.css">
+<link rel="stylesheet" href="css/ecrans.css">
+</head>
+<body>
+
+<div id="jeu" class="jeu">
+
+  <!-- ================= SCÈNE ================= -->
+  <div id="scene" class="scene" hidden>
+
+    <div class="scene__decors" id="decors"></div>
+    <div class="scene__sprites" id="sprites"></div>
+    <div class="scene__voile" id="voile"></div>
+    <div class="scene__grain" aria-hidden="true"></div>
+
+    <!-- illustration plein écran -->
+    <div class="cg" id="cg" hidden>
+      <img class="cg__img" id="cg-img" alt="">
+      <p class="cg__legende" id="cg-legende"></p>
+    </div>
+
+    <!-- carton de date -->
+    <div class="carton" id="carton" hidden>
+      <p class="carton__texte" id="carton-texte"></p>
+      <p class="carton__sous" id="carton-sous"></p>
+    </div>
+
+    <!-- barre du haut -->
+    <header class="hud" id="hud">
+      <div class="hud__chapitre" id="hud-chapitre"></div>
+      <div class="hud__droite">
+        <div class="hud__coeur" id="hud-coeur" title="Complicité">
+          <svg viewBox="0 0 24 22" aria-hidden="true">
+            <defs><clipPath id="coupe-coeur"><rect id="coeur-rect" x="0" y="22" width="24" height="0"/></clipPath></defs>
+            <path class="coeur__fond" d="M12 21S2.5 14.3 2.5 7.9A5.4 5.4 0 0 1 12 4.6 5.4 5.4 0 0 1 21.5 7.9C21.5 14.3 12 21 12 21Z"/>
+            <path class="coeur__plein" clip-path="url(#coupe-coeur)" d="M12 21S2.5 14.3 2.5 7.9A5.4 5.4 0 0 1 12 4.6 5.4 5.4 0 0 1 21.5 7.9C21.5 14.3 12 21 12 21Z"/>
+          </svg>
+          <span class="hud__palier" id="hud-palier"></span>
+        </div>
+        <button class="hud__menu" id="btn-menu" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </header>
+
+    <!-- boîte de dialogue -->
+    <div class="boite" id="boite">
+      <div class="boite__nom" id="boite-nom" hidden></div>
+      <div class="boite__corps">
+        <p class="boite__texte" id="boite-texte" aria-live="polite"></p>
+      </div>
+      <div class="boite__suite" id="boite-suite" aria-hidden="true"></div>
+    </div>
+
+    <!-- choix -->
+    <div class="choix" id="choix" hidden>
+      <p class="choix__question" id="choix-question"></p>
+      <div class="choix__liste" id="choix-liste"></div>
+    </div>
+
+    <!-- zone cliquable pour avancer -->
+    <button class="scene__avancer" id="avancer" aria-label="Continuer"></button>
+  </div>
+
+  <!-- ================= ÉCRANS ================= -->
+  <div id="ecran" class="ecran" hidden></div>
+
+  <!-- toast de carte débloquée -->
+  <div class="toast" id="toast" hidden>
+    <img class="toast__img" id="toast-img" alt="">
+    <div>
+      <p class="toast__sur">Souvenir débloqué</p>
+      <p class="toast__titre" id="toast-titre"></p>
+    </div>
+  </div>
+
+</div>
+
+<script type="module" src="js/main.js"></script>
+</body>
+</html>
