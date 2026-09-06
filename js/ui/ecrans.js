@@ -131,16 +131,26 @@ export async function ecranChapitres() {
       ? `<span class="pola__vide" aria-hidden="true">✦</span>`
       : `<img class="pola__img" src="${await urlOuPlaceholder(c.image, c.titre, "16/9")}" alt="">`;
 
-    return `<button class="pola ${c.cendres ? "pola--cendres" : ""}"
-              ${souSceau ? `data-sceau="${c.id}"` : `data-ch="${c.id}"`}
-              ${ouvert || souSceau ? "" : "disabled"}>
+    // Sous sceau : une carte face cachée, sans nom, sans explication.
+    if (souSceau) {
+      return `<button class="pola pola--cendres" data-sceau="${c.id}" aria-label="Une carte face cachée">
+        <span class="pola__vide" aria-hidden="true">✦</span>
+        <span class="pola__legende">
+          <span class="pola__num">&nbsp;</span>
+          <span class="pola__titre">…</span>
+          <span class="pola__sous">&nbsp;</span>
+        </span>
+      </button>`;
+    }
+
+    return `<button class="pola ${c.cendres ? "pola--cendres" : ""}" data-ch="${c.id}"
+              ${ouvert ? "" : "disabled"}>
       ${fini ? `<span class="pola__lu">lu</span>` : ""}
       ${visuel}
       <span class="pola__legende">
         <span class="pola__num">${c.cendres ? "bonus" : "chapitre " + echappe(c.numero)}</span>
         <span class="pola__titre">${echappe(c.titre)}</span>
-        <span class="pola__sous">${souSceau ? "scellée — elle s'ouvre avec une date…"
-          : ouvert || fini ? echappe(c.sousTitre) : "pas encore"}</span>
+        <span class="pola__sous">${ouvert || fini ? echappe(c.sousTitre) : "pas encore"}</span>
       </span>
     </button>`;
   }));
@@ -174,11 +184,10 @@ function dialogueSceau(id) {
     <div class="carte-detail__boite sceau" role="dialog" aria-label="Carte scellée">
       <div class="carte-detail__texte">
         <h3 class="carte-detail__titre">Cette carte dort.</h3>
-        <p class="carte-detail__verso">Elle s'ouvre avec une date. Jour et mois — rien d'autre.</p>
         <form class="sceau__forme">
           <input class="sceau__champ" inputmode="numeric" autocomplete="off"
-                 placeholder="JJ/MM" maxlength="5" aria-label="La date">
-          <button class="bouton" type="submit">Ouvrir</button>
+                 placeholder="…" maxlength="10" aria-label="Ce qu'il faut pour la réveiller">
+          <button class="bouton" type="submit">Essayer</button>
         </form>
         <p class="sceau__echo" aria-live="polite"></p>
       </div>
@@ -198,7 +207,7 @@ function dialogueSceau(id) {
       echo.textContent = "Elle se réveille.";
       setTimeout(() => { boite.remove(); ecranChapitres(); }, 900);
     } else {
-      echo.textContent = "Non. Ce n'est pas cette date-là.";
+      echo.textContent = "Rien ne se passe.";
       champ.select();
     }
   });

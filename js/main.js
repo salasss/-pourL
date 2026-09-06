@@ -92,7 +92,7 @@ function demarrer() {
   const enLocal = ["localhost", "127.0.0.1"].includes(location.hostname);
   const vierge = new URLSearchParams(location.search).has("vierge");
   if (enLocal && !vierge && !etat.flags.__grainDev) {
-    ORDRE.filter(c => !c.disponibleLe).forEach(c => {
+    ORDRE.filter(c => !c.codeJJMM).forEach(c => {
       if (!etat.chapitresFinis.includes(c.id)) etat.chapitresFinis.push(c.id);
     });
     etat.flags.__grainDev = true;

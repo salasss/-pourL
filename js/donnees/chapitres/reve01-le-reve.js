@@ -1,7 +1,8 @@
 /* ============================================================
    LE RÊVE — mini-chapitre pont, juste après le chapitre 5.
    Trente secondes de l'autre monde, aucun spoiler, un
-   cliffhanger : la suite se réveille le 1er octobre.
+   cliffhanger sec : « À suivre. » — la suite n'est promise nulle part,
+   elle s'ouvre à la clé, le jour où Salas l'annonce.
    ============================================================ */
 
 export default {
@@ -74,7 +75,7 @@ export default {
     { type: "pensee", texte: "Elle ne te racontera pas ce soir. Certaines histoires choisissent leur date toutes seules." },
 
     { type: "musique", arret: true },
-    { type: "carton", texte: "À suivre…", sousTitre: "La suite se réveille le 1ᵉʳ octobre", duree: 4200 },
+    { type: "carton", texte: "À suivre.", duree: 4200 },
 
     { type: "finChapitre" }
   ]
