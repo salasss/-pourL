@@ -542,3 +542,32 @@
   border-radius: var(--r-sm);
 }
 .fin .barre-boutons { justify-content: center; }
+
+/* ============================================================
+   LE SCEAU — la carte qui demande une date
+   ============================================================ */
+.sceau .carte-detail__texte { display: grid; gap: var(--e-3); }
+.sceau__forme {
+  display: flex;
+  gap: var(--e-3);
+  align-items: stretch;
+}
+.sceau__champ {
+  flex: 1;
+  min-width: 0;
+  border: 1px solid var(--trait-fort);
+  border-radius: var(--r-md);
+  padding: var(--e-3) var(--e-4);
+  font-family: var(--titre);
+  font-size: var(--t-md);
+  letter-spacing: .1em;
+  text-align: center;
+  color: var(--encre);
+  background: var(--fond);
+}
+.sceau__champ:focus-visible { outline-offset: 0; }
+.sceau__echo {
+  min-height: 1.4em;
+  font-style: italic;
+  color: var(--encre-douce);
+}

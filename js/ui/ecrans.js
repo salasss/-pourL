@@ -5,7 +5,7 @@
 import { etat, sauver, effacer, aUneSauvegarde, palier } from "../moteur/etat.js";
 import { CARTES, ORDRE_CARTES } from "../donnees/cartes.js";
 import { SOUVENIRS, ORDRE_SOUVENIRS } from "../donnees/souvenirs.js";
-import { ORDRE, metaParId, estAccessible, scelleParDate, chapitreParId } from "../donnees/chapitres/index.js";
+import { ORDRE, metaParId, estAccessible, scelle, essaieCle, chapitreParId } from "../donnees/chapitres/index.js";
 import { urlOuPlaceholder, svgManquant } from "../moteur/placeholder.js";
 import { DECORS } from "../donnees/decors.js";
 import { volumeMusique } from "../moteur/audio.js";
@@ -121,22 +121,25 @@ function brancher() {
 export async function ecranChapitres() {
   const cartes = await Promise.all(ORDRE.map(async c => {
     const ecrit = !!chapitreParId(c.id);
-    const ouvert = ecrit && estAccessible(c.id, etat.chapitresFinis);
+    const ouvert = ecrit && estAccessible(c.id, etat.chapitresFinis, etat.flags);
     const fini = etat.chapitresFinis.includes(c.id);
-    const scelle = scelleParDate(c);
+    const precedentFini = ORDRE.findIndex(x => x.id === c.id) <= 0 ||
+      etat.chapitresFinis.includes(ORDRE[ORDRE.findIndex(x => x.id === c.id) - 1].id);
+    const souSceau = scelle(c, etat.flags) && precedentFini;
 
     const visuel = c.cendres
       ? `<span class="pola__vide" aria-hidden="true">✦</span>`
       : `<img class="pola__img" src="${await urlOuPlaceholder(c.image, c.titre, "16/9")}" alt="">`;
 
-    return `<button class="pola ${c.cendres ? "pola--cendres" : ""}" data-ch="${c.id}"
-              ${ouvert ? "" : "disabled"}>
+    return `<button class="pola ${c.cendres ? "pola--cendres" : ""}"
+              ${souSceau ? `data-sceau="${c.id}"` : `data-ch="${c.id}"`}
+              ${ouvert || souSceau ? "" : "disabled"}>
       ${fini ? `<span class="pola__lu">lu</span>` : ""}
       ${visuel}
       <span class="pola__legende">
         <span class="pola__num">${c.cendres ? "bonus" : "chapitre " + echappe(c.numero)}</span>
         <span class="pola__titre">${echappe(c.titre)}</span>
-        <span class="pola__sous">${scelle ? "se réveille le 1ᵉʳ octobre…"
+        <span class="pola__sous">${souSceau ? "scellée — elle s'ouvre avec une date…"
           : ouvert || fini ? echappe(c.sousTitre) : "pas encore"}</span>
       </span>
     </button>`;
@@ -156,7 +159,49 @@ export async function ecranChapitres() {
   ecran().querySelectorAll("[data-ch]").forEach(b => {
     b.addEventListener("click", () => actions.jouerChapitre(b.dataset.ch));
   });
+  ecran().querySelectorAll("[data-sceau]").forEach(b => {
+    b.addEventListener("click", () => dialogueSceau(b.dataset.sceau));
+  });
   brancher();
+}
+
+/* Le sceau : une carte fermée qui demande une date. */
+function dialogueSceau(id) {
+  const meta = metaParId(id);
+  const boite = document.createElement("div");
+  boite.className = "carte-detail";
+  boite.innerHTML = `
+    <div class="carte-detail__boite sceau" role="dialog" aria-label="Carte scellée">
+      <div class="carte-detail__texte">
+        <h3 class="carte-detail__titre">Cette carte dort.</h3>
+        <p class="carte-detail__verso">Elle s'ouvre avec une date. Jour et mois — rien d'autre.</p>
+        <form class="sceau__forme">
+          <input class="sceau__champ" inputmode="numeric" autocomplete="off"
+                 placeholder="JJ/MM" maxlength="5" aria-label="La date">
+          <button class="bouton" type="submit">Ouvrir</button>
+        </form>
+        <p class="sceau__echo" aria-live="polite"></p>
+      </div>
+    </div>`;
+  boite.addEventListener("click", e => { if (e.target === boite) boite.remove(); });
+  document.body.appendChild(boite);
+
+  const champ = boite.querySelector(".sceau__champ");
+  const echo = boite.querySelector(".sceau__echo");
+  champ.focus();
+
+  boite.querySelector(".sceau__forme").addEventListener("submit", e => {
+    e.preventDefault();
+    if (essaieCle(meta, champ.value)) {
+      etat.flags["cle_" + id] = true;
+      sauver();
+      echo.textContent = "Elle se réveille.";
+      setTimeout(() => { boite.remove(); ecranChapitres(); }, 900);
+    } else {
+      echo.textContent = "Non. Ce n'est pas cette date-là.";
+      champ.select();
+    }
+  });
 }
 
 /* ============================================================

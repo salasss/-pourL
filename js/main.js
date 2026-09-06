@@ -3,6 +3,7 @@
    ============================================================ */
 
 import { etat, charger, sauver } from "./moteur/etat.js";
+import { ORDRE } from "./donnees/chapitres/index.js";
 import { initScene, viderSprites } from "./moteur/scene.js";
 import { initAudio, arreterMusique } from "./moteur/audio.js";
 import { initDialogue, brancherInteractions, cacherBoite } from "./ui/dialogue.js";
@@ -84,6 +85,19 @@ function demarrer() {
   ecrans.initEcrans(actions);
 
   charger();
+
+  // Mode développement : en local, on atterrit à la fin de l'histoire —
+  // tous les chapitres réels lus, le sceau du bonus prêt à être testé.
+  // « ?vierge » dans l'URL pour repartir d'une sauvegarde normale.
+  const enLocal = ["localhost", "127.0.0.1"].includes(location.hostname);
+  const vierge = new URLSearchParams(location.search).has("vierge");
+  if (enLocal && !vierge && !etat.flags.__grainDev) {
+    ORDRE.filter(c => !c.disponibleLe).forEach(c => {
+      if (!etat.chapitresFinis.includes(c.id)) etat.chapitresFinis.push(c.id);
+    });
+    etat.flags.__grainDev = true;
+    sauver();
+  }
 
   // Échap = menu pendant une partie, retour au titre depuis un écran
   document.addEventListener("keydown", e => {
