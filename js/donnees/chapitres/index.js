@@ -10,9 +10,10 @@ import ch04 from "./ch04-annee-grise.js";
 import ch05 from "./ch05-la-distance.js";
 import reve01 from "./reve01-le-reve.js";
 import cendres01 from "./cendres01-la-veilleuse.js";
+import cendres02 from "./cendres02-les-quatre-fragments.js";
 
 /** Chapitres écrits et jouables. */
-export const CHAPITRES = { ch00, ch01, ch02, ch03, ch04, ch05, reve01, cendres01 };
+export const CHAPITRES = { ch00, ch01, ch02, ch03, ch04, ch05, reve01, cendres01, cendres02 };
 
 /** L'ordre du jeu. `image` sert de vignette sur le mur des chapitres. */
 export const ORDRE = [
@@ -24,7 +25,11 @@ export const ORDRE = [
   { id: "ch05", numero: "5", titre: "La distance",      sousTitre: "Perpignan — aujourd'hui",     image: "assets/cg/cg-appel-video.webp" },
   { id: "reve01", numero: "✦", titre: "Le rêve",         sousTitre: "Cette nuit-là", cendres: true },
   { id: "cendres01", numero: "✦", titre: "La Veilleuse", sousTitre: "La suite du rêve", cendres: true,
-    codeJJMM: "0110" }
+    codeJJMM: "0110" },
+  { id: "cendres02", numero: "✦", titre: "Les Quatre Fragments", sousTitre: "Bgayet, la nuit",
+    cendres: true, cache: true },
+  { id: "cendres03", numero: "✦", titre: "Le Serment", sousTitre: "Le chiffre existe encore",
+    cendres: true, cache: true }
 ];
 
 export function chapitreParId(id) { return CHAPITRES[id] || null; }

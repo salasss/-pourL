@@ -92,6 +92,12 @@ export const CARTES = {
     src: K + "carte-14-ailes-fer.webp",
     verso: "Le même pendentif, forgé dans un fer noirci. Ce qui reste quand tout le reste a brûlé."
   },
+  "carte-16-rumeur": {
+    titre: "La Rumeur",
+    src: K + "carte-16-rumeur.webp",
+    verso: "La ville l'appelait la Dévoreuse. Face à son ombre, au pied du phare éteint, " +
+           "elle a répondu : je serai votre monstre. Mais je serai le monstre qui vous garde."
+  },
   "carte-15-tiroir": {
     titre: "Le tiroir vide",
     src: K + "carte-15-tiroir.webp",
@@ -104,5 +110,5 @@ export const ORDRE_CARTES = [
   "carte-01-moutarde", "carte-07-tcf", "carte-02-ailes", "carte-08-veillees",
   "carte-03-tsundere", "carte-04-biscuit", "carte-05-djezzy", "carte-09-7-mai",
   "carte-10-hamburger", "carte-06-chaine", "carte-11-toque", "carte-12-billet",
-  "carte-13-yeux", "carte-14-ailes-fer", "carte-15-tiroir"
+  "carte-13-yeux", "carte-14-ailes-fer", "carte-15-tiroir", "carte-16-rumeur"
 ];

@@ -33,6 +33,10 @@ export const DECORS = {
   "remparts-nuit":    { src: D + "remparts-nuit.webp",    label: "Les remparts" },
   "mer-sans-reflet":  { src: D + "mer-sans-reflet.webp",  label: "La mer sans reflet" },
   "bibliotheque-memoires": { src: D + "bibliotheque-memoires.webp", label: "La bibliothèque des mémoires" },
+  "pic-singes-cendres":  { src: D + "pic-singes-cendres.webp",  label: "Le pic des Singes" },
+  "casbah-cendres":      { src: D + "casbah-cendres.webp",      label: "La Casbah" },
+  "cap-carbon-cendres":  { src: D + "cap-carbon-cendres.webp",  label: "Le cap Carbon" },
+  "kefrida-cendres":     { src: D + "kefrida-cendres.webp",     label: "La cascade suspendue" },
 
   /* ---- le noir, pour les souvenirs qui manquent ---- */
   "vide":             { src: null, label: "" },

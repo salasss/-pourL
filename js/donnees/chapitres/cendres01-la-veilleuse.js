@@ -205,6 +205,6 @@ export default {
 
     { type: "carton", texte: "Elle tient.", sousTitre: "Quelque part, très loin, une boîte rouge reste fermée sur un serment.", duree: 4200 },
 
-    { type: "finChapitre" }
+    { type: "finChapitre", suivant: "cendres02" }
   ]
 };

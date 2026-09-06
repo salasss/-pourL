@@ -119,7 +119,9 @@ function brancher() {
    ============================================================ */
 
 export async function ecranChapitres() {
-  const cartes = await Promise.all(ORDRE.map(async c => {
+  const cartes = await Promise.all(ORDRE.map(async (c, idx) => {
+    // les chapitres cachés n'existent pas tant que le précédent n'est pas lu
+    if (c.cache && !(idx > 0 && etat.chapitresFinis.includes(ORDRE[idx - 1].id))) return "";
     const ecrit = !!chapitreParId(c.id);
     const ouvert = ecrit && estAccessible(c.id, etat.chapitresFinis, etat.flags);
     const fini = etat.chapitresFinis.includes(c.id);
