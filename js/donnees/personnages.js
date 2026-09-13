@@ -43,6 +43,10 @@ export const PERSONNAGES = {
     }
   },
 
+  /* Quatre sprites seulement pour l'arc Cendres. Les expressions que les
+     chapitres demandent en plus sont redirigées vers le sprite le plus
+     proche — et prendront automatiquement le bon fichier le jour où il
+     sera généré (premier chemin qui existe). */
   "lamia-cendres": {
     nom: "Lamia",
     position: "centre",
@@ -50,7 +54,14 @@ export const PERSONNAGES = {
       neutre:     S + "lamia-cendres-neutre.webp",
       determinee: S + "lamia-cendres-determinee.webp",
       epuisee:    S + "lamia-cendres-epuisee.webp",
-      marquee:    S + "lamia-cendres-marquee.webp"
+      marquee:    S + "lamia-cendres-marquee.webp",
+
+      triste:   [S + "lamia-cendres-triste.webp",   S + "lamia-cendres-epuisee.webp"],
+      pensive:  [S + "lamia-cendres-pensive.webp",  S + "lamia-cendres-epuisee.webp"],
+      genee:    [S + "lamia-cendres-genee.webp",    S + "lamia-cendres-neutre.webp"],
+      sourire:  [S + "lamia-cendres-sourire.webp",  S + "lamia-cendres-neutre.webp"],
+      surprise: [S + "lamia-cendres-surprise.webp", S + "lamia-cendres-determinee.webp"],
+      regard:   [S + "lamia-cendres-regard.webp",   S + "lamia-cendres-determinee.webp"]
     }
   },
 

@@ -11,9 +11,11 @@ import ch05 from "./ch05-la-distance.js";
 import reve01 from "./reve01-le-reve.js";
 import cendres01 from "./cendres01-la-veilleuse.js";
 import cendres02 from "./cendres02-les-quatre-fragments.js";
+import cendres03 from "./cendres03-le-serment.js";
 
 /** Chapitres écrits et jouables. */
-export const CHAPITRES = { ch00, ch01, ch02, ch03, ch04, ch05, reve01, cendres01, cendres02 };
+export const CHAPITRES = { ch00, ch01, ch02, ch03, ch04, ch05, reve01,
+                           cendres01, cendres02, cendres03 };
 
 /** L'ordre du jeu. `image` sert de vignette sur le mur des chapitres. */
 export const ORDRE = [
