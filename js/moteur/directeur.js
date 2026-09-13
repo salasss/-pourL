@@ -10,7 +10,7 @@ import {
 import * as scene from "./scene.js";
 import * as audio from "./audio.js";
 import { replique, proposerChoix, cacherBoite, attendreClic } from "../ui/dialogue.js";
-import { majHud, toastCarte, titreChapitre } from "../ui/hud.js";
+import { majHud, toastCarte, toastMot, titreChapitre } from "../ui/hud.js";
 import { PERSONNAGES } from "../donnees/personnages.js";
 import { CARTES } from "../donnees/cartes.js";
 import { DECORS } from "../donnees/decors.js";
@@ -236,6 +236,8 @@ async function executer(n, noeuds) {
     case "lexique":
       appliquerEffets({ lexique: n.valeur === undefined ? 1 : n.valeur });
       majHud({ anime: true });
+      toastMot();
+      await scene.attendre(1400);
       return;
 
     case "rumeur":

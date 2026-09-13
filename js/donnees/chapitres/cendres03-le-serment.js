@@ -23,7 +23,7 @@ export default {
     { type: "decor", image: "kefrida-cendres", transition: "fondu", duree: 1600 },
     { type: "perso", id: "lamia-cendres", pose: "determinee", position: "centre" },
 
-    { type: "narration", texte: "Elle est revenue derrière l'eau arrêtée. Les quatre fragments tiennent dans elle comme quatre braises : la chaleur, le mur, l'ombre, la boîte." },
+    { type: "narration", texte: "Elle est revenue derrière l'Eau Debout. Les quatre fragments tiennent dans elle comme quatre braises : la chaleur, le mur, l'ombre, la boîte." },
     { type: "narration", texte: "Le souvenir est presque entier. Il a une journée, un lieu, une lumière. Il lui manque un chiffre." },
 
     { type: "narration", texte: "Elle pose les deux mains sur le métal rouge. Elle pousse. Elle force. Elle jure — très mal, très bas, dans une langue que la cendre n'a pas encore mangée." },
@@ -161,7 +161,7 @@ export default {
     { type: "decor", image: "kefrida-cendres", transition: "fondu", duree: 1600 },
     { type: "perso", id: "lamia-cendres", pose: "neutre", position: "centre" },
 
-    { type: "narration", texte: "La boîte rouge est toujours là, au bout de la rue derrière l'eau. Le cadenas est toujours soudé." },
+    { type: "narration", texte: "La boîte rouge est toujours là, au bout de la rue derrière l'Eau Debout. Le cadenas est toujours soudé." },
     { type: "dialogue", perso: "lamia-cendres", texte: "Il disait que le chiffre n'existait plus." },
     { type: "dialogue", perso: "voix", texte: "Il mentait. Tu le comptes depuis le début." },
 
@@ -213,9 +213,9 @@ export default {
       ] },
 
     { type: "attendre", duree: 1400 },
-    { type: "narration", texte: "Derrière l'eau suspendue, quelque chose craque. Le rideau de verre gris tremble." },
+    { type: "narration", texte: "Derrière elle, l'Eau Debout craque. Le rideau de verre gris tremble sur toute sa hauteur." },
     { type: "attendre", duree: 1000 },
-    { type: "narration", texte: "Et la cascade retombe." },
+    { type: "narration", texte: "Et l'eau se remet à tomber. Pour la première fois depuis des années, quelque chose, dans ce pays, fait du bruit." },
     { type: "sfx", son: "coeur" },
 
     { type: "attendre", duree: 1600 },

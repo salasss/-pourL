@@ -58,13 +58,13 @@ export default {
     { type: "perso", id: "lamia-cendres", pose: "neutre", position: "centre" },
 
     { type: "choix", question: "Où souffles-tu de l'emmener ?", options: [
-      { texte: "« Haut. »  — vers le pic des Singes",
+      { texte: "« Haut. »  — vers le Pic des Voleurs",
         condition: { flagFaux: "frag_chaleur" },
         effets: { flags: {} }, aller: "pic" },
-      { texte: "« Vieux. »  — vers la Casbah",
+      { texte: "« Vieux. »  — vers la Doyenne",
         condition: { flagFaux: "frag_mur" },
         effets: { flags: {} }, aller: "casbah" },
-      { texte: "« Loin. »  — vers le cap Carbon",
+      { texte: "« Loin. »  — vers la Lanterne Morte",
         condition: { flagFaux: "frag_ombre" },
         effets: { flags: {} }, aller: "cap" }
     ]},
@@ -72,15 +72,16 @@ export default {
     /* ================== LE PIC DES SINGES — la chaleur ================== */
 
     { type: "label", nom: "pic" },
-    { type: "carton", texte: "Le pic des Singes", sousTitre: "Sur le flanc de la Gardienne", duree: 2600 },
+    { type: "carton", texte: "Le Pic des Voleurs", sousTitre: "Sur l'épaule de la Gardienne", duree: 2600 },
     { type: "decor", image: "pic-singes-cendres", transition: "noir", duree: 1300 },
     { type: "perso", id: "lamia-cendres", pose: "neutre", position: "centre" },
 
-    { type: "narration", texte: "Le sentier grimpe à même le flanc de la montagne endormie. Et là-haut, pour la première fois depuis des mois, quelque chose bouge." },
+    { type: "narration", texte: "Le sentier grimpe à même l'épaule de la montagne endormie. En bas, on l'appelle le Pic des Voleurs, et personne ne sait plus très bien pourquoi." },
+    { type: "narration", texte: "Elle va le savoir dans une minute. Là-haut, pour la première fois depuis des mois, quelque chose bouge." },
     { type: "narration", texte: "Les singes. La cendre ne les prend pas — ils n'ont pas de noms à manger. Ils sont des dizaines, serrés sur les rochers, et entre eux, ça luit." },
     { type: "narration", texte: "De la chaleur. La vraie. Celle du soleil d'avant, gardée dans des pierres qu'ils se passent de main en main comme un trésor de famille." },
 
-    { type: "dialogue", perso: "lamia-cendres", pose: "surprise", texte: "Ils ont volé l'été. Ces petits crapules ont volé l'été." },
+    { type: "dialogue", perso: "lamia-cendres", pose: "surprise", texte: "Les voleurs. C'est eux, les voleurs. Ils ont volé l'été." },
 
     { type: "narration", texte: "Le plus vieux s'avance. Il la regarde longtemps — pas comme on regarde un monstre. Comme on jauge un marchand." },
     { type: "narration", texte: "Le marché est simple, et elle le comprend sans un mot : une pierre chaude contre un souvenir chaud. Ici, on ne donne rien contre rien." },
@@ -97,13 +98,13 @@ export default {
     { type: "narration", texte: "Des rires dans une salle trop éclairée. Une odeur de friture. Quelqu'un en face d'elle qui commande toujours la même chose." },
     { type: "dialogue", perso: "lamia-cendres", pose: "genee", texte: "…c'est à moi, ça ? Je connais pas cet endroit. Mais c'est chaud." },
     { type: "pensee", texte: "Tu le reconnais, toi. Tu donnerais n'importe quoi pour qu'elle le garde. Et c'est exactement ce qu'elle est en train de payer." },
-    { type: "narration", texte: "Le vieux singe prend le souvenir comme on prend un fruit mûr. Et pose dans sa paume une pierre qui brûle doucement." },
+    { type: "narration", texte: "Le vieux prend le souvenir comme on prend un fruit mûr. Et pose dans sa paume une pierre qui brûle doucement." },
     { type: "aller", label: "pic_fragment" },
 
     { type: "label", nom: "pic_refuse" },
-    { type: "narration", texte: "Elle refuse. Le vieux singe hausse les épaules — un geste très humain, très vexant — et la troupe commence à se détourner." },
+    { type: "narration", texte: "Elle refuse. Le vieux hausse les épaules — un geste très humain, très vexant — et la troupe commence à se détourner." },
     { type: "dialogue", perso: "lamia-cendres", pose: "epuisee", texte: "Attends. Attends. D'accord." },
-    { type: "narration", texte: "Ce qu'elle donne, elle ne le choisit pas : des rires dans une salle trop éclairée, une odeur de friture, quelqu'un en face d'elle. Le singe le prend comme un fruit mûr." },
+    { type: "narration", texte: "Ce qu'elle donne, elle ne le choisit pas : des rires dans une salle trop éclairée, une odeur de friture, quelqu'un en face d'elle. Le voleur le prend comme un fruit mûr." },
     { type: "pensee", texte: "Tu le reconnais, toi. Elle paie avec des morceaux de vous deux, sans le savoir." },
     { type: "aller", label: "pic_fragment" },
 
@@ -118,11 +119,11 @@ export default {
     /* ================== LA CASBAH — le mur ================== */
 
     { type: "label", nom: "casbah" },
-    { type: "carton", texte: "La Casbah", sousTitre: "Les vieilles pierres", duree: 2600 },
+    { type: "carton", texte: "La Doyenne", sousTitre: "Le quartier qui se souvient", duree: 2600 },
     { type: "decor", image: "casbah-cendres", transition: "noir", duree: 1300 },
     { type: "perso", id: "lamia-cendres", pose: "neutre", position: "centre" },
 
-    { type: "narration", texte: "La Casbah est la doyenne de la ville. Des siècles de pierre, des couches de noms gravés — les mariages, les naissances, les serments, tout ce que Bgayet voulait garder, elle venait l'écrire là." },
+    { type: "narration", texte: "On l'appelle la Doyenne : c'est le plus vieux quartier de Bgayet, et le seul qui ait une mémoire. Des siècles de pierre, des couches de noms gravés — les mariages, les naissances, les serments. Tout ce que la ville voulait garder, elle venait l'écrire là." },
     { type: "narration", texte: "La cendre remonte les murs comme une marée patiente. Les gravures s'effacent de bas en haut. Les plus vieilles tiennent encore. Plus pour longtemps." },
 
     { type: "dialogue", perso: "lamia-cendres", pose: "pensive", texte: "Un nom gravé, c'est quelqu'un qui a existé assez fort pour abîmer une pierre." },
@@ -159,11 +160,12 @@ export default {
     /* ================== LE CAP CARBON — l'ombre ================== */
 
     { type: "label", nom: "cap" },
-    { type: "carton", texte: "Le cap Carbon", sousTitre: "Le phare éteint", duree: 2600 },
+    { type: "carton", texte: "La Lanterne Morte", sousTitre: "Au bout du cap", duree: 2600 },
     { type: "decor", image: "cap-carbon-cendres", transition: "noir", duree: 1300 },
     { type: "perso", id: "lamia-cendres", pose: "neutre", position: "centre" },
 
-    { type: "narration", texte: "Le phare du cap Carbon est éteint depuis que la mer ne reflète plus rien. À quoi bon guider des bateaux vers une ville qui oublie les marins." },
+    { type: "narration", texte: "Au bout du cap, le phare est éteint depuis que la mer ne reflète plus rien. On ne dit plus « le phare ». On dit la Lanterne Morte, et on regarde ailleurs en le disant." },
+    { type: "narration", texte: "À quoi bon guider des bateaux vers une ville qui oublie les marins." },
     { type: "narration", texte: "Mais un phare éteint garde une ombre. Elle est là, couchée sur l'eau noire, immense, immobile — une ombre sans lumière pour l'expliquer. C'est faux, c'est impossible, et c'est là." },
 
     { type: "narration", texte: "Et dans l'ombre, quelqu'un attend. Elle a sa silhouette. Sa capuche. Ses ailes de fer au cou." },
@@ -241,11 +243,12 @@ export default {
     /* ================== KEFRIDA — la boîte ================== */
 
     { type: "label", nom: "kefrida" },
-    { type: "carton", texte: "Les cascades de Kefrida", sousTitre: "Là où l'eau s'est arrêtée", duree: 2800 },
+    { type: "carton", texte: "L'Eau Debout", sousTitre: "Là-haut, où la cascade a cessé de tomber", duree: 2800 },
     { type: "decor", image: "kefrida-cendres", transition: "noir", duree: 1500 },
     { type: "perso", id: "lamia-cendres", pose: "neutre", position: "centre" },
 
     { type: "narration", texte: "La cascade est suspendue en plein vol. Des tonnes d'eau arrêtées entre le haut et le bas, figées en un rideau de verre gris qui ne tombe pas." },
+    { type: "narration", texte: "Dans la vallée, on ne dit plus son nom. On dit l'Eau Debout, parce qu'une eau qui ne tombe plus n'est plus vraiment une cascade." },
     { type: "narration", texte: "Même la cendre n'ose pas se poser dessus. C'est le seul endroit propre de tout le pays." },
     { type: "dialogue", perso: "lamia-cendres", pose: "pensive", texte: "L'eau attend. Tout ce pays retient son souffle, en fait. Depuis le début." },
 

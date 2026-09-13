@@ -392,10 +392,10 @@
   gap: var(--e-3);
 }
 .hud__lexique {
-  font-size: var(--t-sm);
-  letter-spacing: .28em;
+  font-size: var(--t-base);
+  letter-spacing: .3em;
   color: var(--accent-vif);
-  text-shadow: 0 1px 6px rgba(0, 0, 0, .8);
+  text-shadow: 0 0 10px rgba(0, 0, 0, .9);
 }
 .hud__rumeur {
   font-family: var(--titre);
@@ -415,3 +415,10 @@
   min-height: 1.1em;
 }
 .carton--compte .carton__sous { opacity: .75; }
+
+/* le toast quand un mot revient : pas de vignette, que du texte */
+.toast--mot { padding-left: var(--e-5); }
+.toast--mot .toast__titre {
+  letter-spacing: .3em;
+  color: var(--accent-vif);
+}

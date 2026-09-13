@@ -21,6 +21,7 @@ export function initHud(surMenu) {
   els.toast    = $("toast");
   els.toastImg = $("toast-img");
   els.toastTit = $("toast-titre");
+  els.toastSur = $("toast-sur");
   $("btn-menu").addEventListener("click", surMenu);
   majHud();
 }
@@ -63,9 +64,41 @@ export function majHud({ anime = false } = {}) {
 }
 
 let minuteurToast;
+
+/** Un mot revient à la voix : on le montre, ça ne doit pas passer inaperçu. */
+export function toastMot() {
+  els.toastImg.hidden = true;
+  els.toastSur.textContent = "Un mot te revient";
+  els.toastTit.textContent =
+    "●".repeat(etat.lexique) + "○".repeat(Math.max(0, LEXIQUE_MAX - etat.lexique)) +
+    (etat.lexique >= LEXIQUE_MAX ? "   une phrase entière" : "");
+  els.toast.classList.add("toast--mot");
+  afficherToast();
+  jouerSfx("coeur");
+}
+
+function afficherToast() {
+  els.toast.hidden = false;
+  clearTimeout(minuteurToast);
+  minuteurToast = setTimeout(() => {
+    els.toast.style.transition = "opacity 400ms";
+    els.toast.style.opacity = "0";
+    setTimeout(() => {
+      els.toast.hidden = true;
+      els.toast.style.opacity = "";
+      els.toast.style.transition = "";
+      els.toast.classList.remove("toast--mot");
+      els.toastImg.hidden = false;
+      els.toastSur.textContent = "Souvenir débloqué";
+    }, 400);
+  }, 2800);
+}
+
 export async function toastCarte(idCarte) {
   const c = CARTES[idCarte];
   if (!c) return;
+  els.toastImg.hidden = false;
+  els.toastSur.textContent = "Souvenir débloqué";
   els.toastImg.src = await urlOuPlaceholder(c.src, c.titre, "3/4");
   els.toastTit.textContent = c.titre;
   els.toast.hidden = false;
