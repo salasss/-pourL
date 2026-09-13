@@ -180,6 +180,37 @@ export async function montrerCarton(texte, sous, duree = 2400) {
   els.carton.style.transition = "";
 }
 
+/* ---------- le compte : un chiffre par clic ----------
+   Le joueur compte AVEC elle. Sept clics, sept chiffres. */
+
+export async function compter(liste, aide, attendreClic) {
+  els.cartonT.textContent = "";
+  els.cartonS.textContent = aide || "";
+  els.cartonS.hidden = !aide;
+  els.carton.hidden = false;
+  els.carton.classList.add("carton--compte");
+
+  for (const mot of liste) {
+    await attendreClic();
+    els.cartonT.textContent = mot;
+    els.cartonT.style.animation = "none";
+    void els.cartonT.offsetWidth;
+    els.cartonT.style.animation = "";
+    els.cartonS.hidden = true;
+    await attendre(160);
+  }
+
+  await attendre(900);
+  els.carton.style.transition = "opacity 700ms";
+  els.carton.style.opacity = "0";
+  await attendre(700);
+  els.carton.hidden = true;
+  els.carton.classList.remove("carton--compte");
+  els.carton.style.opacity = "";
+  els.carton.style.transition = "";
+  els.cartonT.style.animation = "";
+}
+
 /* ---------- bascule de peau ---------- */
 
 export async function basculerPeau(nom) {

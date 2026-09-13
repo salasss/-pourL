@@ -30,7 +30,8 @@ export default {
 
     { type: "attendre", duree: 1400 },
     { type: "pensee", texte: "Toi, tu n'as pas de corps. Tu as dû en avoir un — il t'en reste une impression, comme une chaise garde la forme de celui qui s'est levé." },
-    { type: "pensee", texte: "Tu n'as que des mots. Et une seule personne au monde les entend encore." },
+    { type: "pensee", texte: "Tu n'as pas de mots non plus. Pas encore. La cendre te les a pris un par un, et il ne te reste que des intentions — pousser, retenir, se taire." },
+    { type: "pensee", texte: "Elle, elle les traduit. C'est la seule au monde qui sache encore lire ce qui te reste." },
 
     /* ---------- 2. Elle ---------- */
 
@@ -45,21 +46,23 @@ export default {
     { type: "narration", texte: "Ses yeux sont verts. C'est important. C'est la seule couleur vivante de toute la ville." },
     { type: "narration", texte: "Et ils changent avec les saisons. Tant qu'ils changent, elle se souvient. Le jour où ils se figeront, la cendre aura fini son travail." },
 
-    { type: "choix", question: "Elle s'est arrêtée au bord du rempart. Tu es sa voix dans la nuit. Tu dis quoi ?", options: [
-      { texte: "« Tu devrais dormir. »",
+    { type: "choix", question: "Elle s'est arrêtée au bord du rempart. Tu n'as pas de mots. Tu pousses quoi ?", options: [
+      { texte: "Vers le sommeil.",
         effets: { flags: { voix_douce: true } }, aller: "v_dormir" },
-      { texte: "« Encore debout ? »",
+      { texte: "Vers elle, un peu plus près.",
         effets: {}, aller: "v_debout" },
       { texte: "Rien. La regarder veiller.",
         effets: { flags: { voix_silence: true } }, aller: "v_rien" }
     ]},
 
     { type: "label", nom: "v_dormir" },
+    { type: "narration", texte: "Tu pousses vers le sommeil. Ce n'est pas un mot — c'est une pression douce, du côté de la fatigue." },
     { type: "dialogue", perso: "lamia-cendres", pose: "neutre", texte: "Dormir. Et à mon réveil, il manquera quoi, cette fois ?" },
     { type: "narration", texte: "Elle ne le dit pas méchamment. Elle le dit comme on récite une règle du jeu." },
     { type: "aller", label: "v_suite" },
 
     { type: "label", nom: "v_debout" },
+    { type: "narration", texte: "Tu te presses contre elle — sans corps, sans bruit, juste une insistance." },
     { type: "dialogue", perso: "lamia-cendres", pose: "neutre", texte: "Tu tombes toujours au même moment, toi. Quand je suis sur le point d'arrêter." },
     { type: "aller", label: "v_suite" },
 
@@ -104,16 +107,17 @@ export default {
     { type: "attendre", duree: 1000 },
     { type: "dialogue", perso: "lamia-cendres", pose: "triste", texte: "Je ne sais plus ton nom. Je sais tout le reste. Ta façon de te taire. Le rythme de tes phrases. Mais plus ton nom." },
 
-    { type: "choix", question: "Elle attend. Tu réponds quoi ?", options: [
-      { texte: "« Ce n'est pas grave. »",
+    { type: "choix", question: "Elle attend une réponse. Tu n'as toujours pas de mots.", options: [
+      { texte: "Apaiser. Lui faire comprendre que ça va.",
         effets: {}, aller: "n_pasgrave" },
-      { texte: "Essayer de dire ton nom.",
+      { texte: "Chercher ton nom quand même.",
         effets: { flags: { a_essaye_nom: true } }, aller: "n_essaie" },
-      { texte: "« Toi non plus, tu ne t'appelles plus. Pour moi tu es juste toi. »",
+      { texte: "Te serrer autour d'elle, sans rien expliquer.",
         effets: { flags: { voix_toi: true } }, aller: "n_toi" }
     ]},
 
     { type: "label", nom: "n_pasgrave" },
+    { type: "narration", texte: "Tu essaies de la calmer. Ça arrive comme une main sur une épaule, sauf qu'il n'y a ni main ni épaule." },
     { type: "dialogue", perso: "lamia-cendres", pose: "determinee", texte: "Si. C'est grave." },
     { type: "narration", texte: "Elle referme le tiroir vide, doucement, comme on borde quelqu'un." },
     { type: "aller", label: "n_suite" },
@@ -126,6 +130,7 @@ export default {
     { type: "aller", label: "n_suite" },
 
     { type: "label", nom: "n_toi" },
+    { type: "narration", texte: "Tu ne réponds pas à la question. Tu te resserres simplement autour d'elle, comme on se tait avec quelqu'un." },
     { type: "dialogue", perso: "lamia-cendres", pose: "neutre", texte: "Juste toi. D'accord." },
     { type: "attendre", duree: 800 },
     { type: "dialogue", perso: "lamia-cendres", pose: "epuisee", texte: "C'est déjà un nom, remarque. C'est le tien. Personne d'autre ne l'a." },
@@ -144,16 +149,17 @@ export default {
     { type: "attendre", duree: 1100 },
     { type: "dialogue", perso: "lamia-cendres", pose: "marquee", texte: "Ça ne fait pas mal. C'est ça qui devrait m'inquiéter, je crois." },
 
-    { type: "choix", question: "Te souvenir d'elle la maintient debout. Se souvenir de toi la consume.", options: [
-      { texte: "« Lâche-moi. Oublie-moi, et ça s'arrête. »",
-        effets: { flags: { a_offert_oubli: true } }, aller: "m_lache" },
-      { texte: "« Tiens bon. »",
+    { type: "choix", question: "Se souvenir de toi la consume. Tu pousses quoi ?", options: [
+      { texte: "Te retirer. Desserrer. La laisser respirer.",
+        effets: { rumeur: -1, flags: { a_offert_oubli: true } }, aller: "m_lache" },
+      { texte: "Tenir. Ne pas bouger d'un pouce.",
         effets: {}, aller: "m_tiens" },
-      { texte: "« Partage. Donne-m'en la moitié. »",
-        effets: { flags: { a_partage: true } }, aller: "m_partage" }
+      { texte: "Tirer la cendre vers toi, en prendre ta part.",
+        effets: { rumeur: 1, flags: { a_partage: true } }, aller: "m_partage" }
     ]},
 
     { type: "label", nom: "m_lache" },
+    { type: "narration", texte: "Tu te retires. Tu te fais tout petit, jusqu'à presque disparaître — ce qui, pour toi, est un vrai risque." },
     { type: "attendre", duree: 900 },
     { type: "dialogue", perso: "lamia-cendres", pose: "determinee", texte: "C'est pas toi qui décides ça." },
     { type: "narration", texte: "Elle le dit sans lever la voix. Comme une porte qu'on ferme à clé." },
@@ -164,6 +170,7 @@ export default {
     { type: "aller", label: "m_suite" },
 
     { type: "label", nom: "m_partage" },
+    { type: "narration", texte: "Tu tires vers toi. Tu essaies de prendre la cendre à sa place. Elle ne vient pas — mais elle sent que tu as essayé." },
     { type: "dialogue", perso: "lamia-cendres", pose: "neutre", texte: "Si je pouvais, je t'aurais déjà tout donné. Mais ça ne se partage pas. Ça se garde." },
     { type: "aller", label: "m_suite" },
 

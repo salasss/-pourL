@@ -26,6 +26,9 @@ export function evalue(cond) {
   if (cond.flagFaux !== undefined)    return !aFlag(cond.flagFaux);
   if (cond.compliciteMin !== undefined) return etat.complicite >= cond.compliciteMin;
   if (cond.compliciteMax !== undefined) return etat.complicite <= cond.compliciteMax;
+  if (cond.rumeurMin !== undefined)   return etat.rumeur >= cond.rumeurMin;
+  if (cond.rumeurMax !== undefined)   return etat.rumeur <= cond.rumeurMax;
+  if (cond.lexiqueMin !== undefined)  return etat.lexique >= cond.lexiqueMin;
   if (cond.carte !== undefined)       return aCarte(cond.carte);
   if (cond.chapitreFini !== undefined) return aFini(cond.chapitreFini);
   return true;
@@ -75,6 +78,7 @@ export async function jouerChapitre(ch, depuis = 0, surFin) {
   prechargerChapitre(ch);
 
   if (ch.peau) await scene.basculerPeau(ch.peau);
+  majHud();
 
   const noeuds = aplatir(ch.noeuds);
   let i = depuis;
@@ -151,7 +155,9 @@ async function executer(n, noeuds) {
       const dispo = (n.options || []).filter(o => evalue(o.condition));
       const choisi = await proposerChoix(n.question, dispo);
       const obtenus = appliquerEffets(choisi.effets || {});
-      if (choisi.effets?.complicite) majHud({ anime: true });
+      if (choisi.effets?.complicite || choisi.effets?.rumeur || choisi.effets?.lexique) {
+        majHud({ anime: true });
+      }
       for (const c of obtenus) await toastCarte(c);
       if (choisi.aller !== undefined) return { aller: choisi.aller };
       return;
@@ -219,11 +225,28 @@ async function executer(n, noeuds) {
 
     case "peau":
       await scene.basculerPeau(n.nom);
+      majHud();
       return;
 
     case "complicite":
       appliquerEffets({ complicite: n.valeur });
       majHud({ anime: true });
+      return;
+
+    case "lexique":
+      appliquerEffets({ lexique: n.valeur === undefined ? 1 : n.valeur });
+      majHud({ anime: true });
+      return;
+
+    case "rumeur":
+      appliquerEffets({ rumeur: n.valeur === undefined ? 1 : n.valeur });
+      majHud({ anime: true });
+      return;
+
+    case "compter":
+      cacherBoite(true);
+      await scene.compter(n.liste || ["1"], n.aide, attendreClic);
+      cacherBoite(false);
       return;
 
     case "flag":

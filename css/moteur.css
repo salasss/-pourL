@@ -384,3 +384,34 @@
 @media (min-width: 1100px) {
   :root { --h-sprite: 68vh; }
 }
+
+/* ---------- HUD de l'arc Cendres : le lexique et la rumeur ---------- */
+.hud__cendres {
+  display: flex;
+  align-items: baseline;
+  gap: var(--e-3);
+}
+.hud__lexique {
+  font-size: var(--t-sm);
+  letter-spacing: .28em;
+  color: var(--accent-vif);
+  text-shadow: 0 1px 6px rgba(0, 0, 0, .8);
+}
+.hud__rumeur {
+  font-family: var(--titre);
+  font-size: var(--t-sm);
+  font-style: italic;
+  color: rgba(255, 255, 255, .8);
+  text-shadow: 0 1px 6px rgba(0, 0, 0, .8);
+}
+.hud__cendres--bat .hud__lexique { animation: battement .6s var(--courbe); display: inline-block; }
+
+@media (max-width: 480px) { .hud__rumeur { display: none; } }
+
+/* ---------- le compte : un chiffre, un clic ---------- */
+.carton--compte .carton__texte {
+  font-size: clamp(3.5rem, 2rem + 8vw, 7rem);
+  line-height: 1;
+  min-height: 1.1em;
+}
+.carton--compte .carton__sous { opacity: .75; }

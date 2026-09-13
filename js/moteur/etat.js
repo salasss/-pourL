@@ -18,6 +18,8 @@ function neuf() {
     chapitre: null,
     index: 0,
     complicite: 0,
+    lexique: 0,        // mots rendus à la voix (arc Cendres)
+    rumeur: 0,         // ce que la ville raconte d'elle (arc Cendres)
     flags: {},
     cartes: [],
     souvenirs: [],
@@ -91,6 +93,22 @@ export function ratioComplicite() {
   return Math.max(0, Math.min(1, etat.complicite / 45));
 }
 
+/* ---------- arc Cendres ---------- */
+
+/** Les mots que la voix a récupérés : 0 au début, 4 à la fin. */
+export const LEXIQUE_MAX = 4;
+
+export const PALIERS_RUMEUR = [
+  { min: 10, nom: "Le monstre de Bgayet" },
+  { min: 6,  nom: "La Dévoreuse" },
+  { min: 3,  nom: "On chuchote" },
+  { min: 0,  nom: "Une ombre qui passe" }
+];
+
+export function palierRumeur(valeur = etat.rumeur) {
+  return PALIERS_RUMEUR.find(p => valeur >= p.min).nom;
+}
+
 export function aFlag(nom)   { return !!etat.flags[nom]; }
 export function aCarte(id)   { return etat.cartes.includes(id); }
 export function aFini(idCh)  { return etat.chapitresFinis.includes(idCh); }
@@ -101,6 +119,12 @@ export function appliquerEffets(effets = {}) {
   const obtenus = [];
   if (typeof effets.complicite === "number") {
     etat.complicite = Math.max(0, etat.complicite + effets.complicite);
+  }
+  if (typeof effets.rumeur === "number") {
+    etat.rumeur = Math.max(0, etat.rumeur + effets.rumeur);
+  }
+  if (typeof effets.lexique === "number") {
+    etat.lexique = Math.max(0, Math.min(LEXIQUE_MAX, etat.lexique + effets.lexique));
   }
   if (effets.flags) Object.assign(etat.flags, effets.flags);
   if (effets.carte && !etat.cartes.includes(effets.carte)) {

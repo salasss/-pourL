@@ -168,16 +168,8 @@ export default {
     { type: "attendre", duree: 1400 },
     { type: "narration", texte: "Elle ferme les yeux. Et elle fait ce qu'elle fait depuis des mois quand tout tremble : elle compte." },
 
-    { type: "attendre", duree: 900, cacherBoite: true },
-    { type: "narration", texte: "Un." },
-    { type: "attendre", duree: 800 },
-    { type: "narration", texte: "Deux. Trois." },
-    { type: "attendre", duree: 800 },
-    { type: "narration", texte: "Quatre. Cinq." },
-    { type: "attendre", duree: 900 },
-    { type: "narration", texte: "Six." },
-    { type: "attendre", duree: 1400 },
-    { type: "narration", texte: "Sept." },
+    { type: "compter", aide: "Compte avec elle.",
+      liste: ["Un.", "Deux.", "Trois.", "Quatre.", "Cinq.", "Six.", "Sept."] },
 
     { type: "attendre", duree: 1600, cacherBoite: true },
     { type: "sfx", son: "carte" },
@@ -208,6 +200,17 @@ export default {
     { type: "narration", texte: "Le nom sort de sa bouche et le monde se souvient de quelque chose." },
     { type: "narration", texte: "La cendre s'arrête de tomber. Pas d'un coup — elle hésite, comme une pluie qui ne sait plus si elle continue." },
     { type: "narration", texte: "Puis elle remonte. Doucement, de partout, des toits, des noms, de la mer. Un monde entier qui range à l'envers." },
+
+    { type: "si", condition: { rumeurMin: 6 },
+      alors: [
+        { type: "attendre", duree: 1200 },
+        { type: "narration", texte: "En bas, dans la ville, ceux qui la craignaient le plus se réveillent les premiers. C'est logique, quand on y pense : pour avoir peur de quelqu'un pendant des mois, il faut s'en souvenir tous les jours." },
+        { type: "narration", texte: "Sa légende l'a gardée vivante dans des têtes qui ne voulaient pas d'elle. La Dévoreuse leur a sauvé la mémoire en leur faisant peur." }
+      ],
+      sinon: [
+        { type: "attendre", duree: 1000 },
+        { type: "narration", texte: "En bas, dans la ville, personne ne saura jamais qui a fait ça. Elle est passée si discrètement qu'elle n'a laissé aucune légende derrière elle. C'était le but." }
+      ] },
 
     { type: "attendre", duree: 1400 },
     { type: "narration", texte: "Derrière l'eau suspendue, quelque chose craque. Le rideau de verre gris tremble." },

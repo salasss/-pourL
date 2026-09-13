@@ -2,7 +2,7 @@
    HUD — barre du haut : chapitre, jauge de complicité, menu
    ============================================================ */
 
-import { etat, palier, ratioComplicite } from "../moteur/etat.js";
+import { etat, palier, ratioComplicite, palierRumeur, LEXIQUE_MAX } from "../moteur/etat.js";
 import { CARTES } from "../donnees/cartes.js";
 import { urlOuPlaceholder } from "../moteur/placeholder.js";
 import { jouerSfx } from "../moteur/audio.js";
@@ -15,6 +15,9 @@ export function initHud(surMenu) {
   els.rect     = $("coeur-rect");
   els.coeur    = $("hud-coeur");
   els.palier   = $("hud-palier");
+  els.cendres  = $("hud-cendres");
+  els.lexique  = $("hud-lexique");
+  els.rumeur   = $("hud-rumeur");
   els.toast    = $("toast");
   els.toastImg = $("toast-img");
   els.toastTit = $("toast-titre");
@@ -27,6 +30,25 @@ export function titreChapitre(texte) {
 }
 
 export function majHud({ anime = false } = {}) {
+  // Deux jauges selon la peau : le cœur dans les chapitres réels,
+  // le lexique + la rumeur dans l'arc Cendres.
+  const cendres = document.documentElement.classList.contains("peau-cendres");
+  els.coeur.hidden = cendres;
+  els.cendres.hidden = !cendres;
+
+  if (cendres) {
+    els.lexique.textContent =
+      "●".repeat(etat.lexique) + "○".repeat(Math.max(0, LEXIQUE_MAX - etat.lexique));
+    els.rumeur.textContent = palierRumeur();
+    if (anime) {
+      els.cendres.classList.remove("hud__cendres--bat");
+      void els.cendres.offsetWidth;
+      els.cendres.classList.add("hud__cendres--bat");
+      jouerSfx("coeur");
+    }
+    return;
+  }
+
   const r = ratioComplicite();
   // le cœur se remplit par le bas
   els.rect.setAttribute("y", String(22 - 22 * r));

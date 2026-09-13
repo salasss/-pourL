@@ -44,7 +44,8 @@ export default {
 
     { type: "narration", texte: "Elle lève les yeux vers la Gardienne — la montagne-femme endormie au-dessus de la ville. Puis vers la mer sans reflet. Puis vers les hauteurs, où l'eau s'est arrêtée de tomber." },
     { type: "dialogue", perso: "lamia-cendres", pose: "determinee", texte: "On commence par où ?" },
-    { type: "pensee", texte: "Elle te demande ton avis. À toi. La voix qui sait dire trois mots." },
+    { type: "pensee", texte: "Elle te demande ton avis. À toi. La voix qui ne sait plus dire un seul mot en entier." },
+    { type: "pensee", texte: "Tu pousses. C'est tout ce que tu sais faire. Elle traduit — et elle traduit juste, presque toujours." },
 
     /* ================== LE CARREFOUR ================== */
 
@@ -86,9 +87,9 @@ export default {
 
     { type: "choix", question: "Elle n'a pas beaucoup de souvenirs à elle. Tu souffles quoi ?", options: [
       { texte: "« Donne. »",
-        effets: { flags: { paye_souvenir: true } }, aller: "pic_donne" },
+        effets: { rumeur: 1, flags: { paye_souvenir: true } }, aller: "pic_donne" },
       { texte: "« Non. »",
-        effets: {}, aller: "pic_refuse" }
+        effets: { rumeur: 2 }, aller: "pic_refuse" }
     ]},
 
     { type: "label", nom: "pic_donne" },
@@ -110,6 +111,7 @@ export default {
     { type: "narration", texte: "La pierre chauffe sa main, puis son bras, puis quelque chose derrière les côtes qui n'avait plus chauffé depuis longtemps." },
     { type: "narration", texte: "LA CHALEUR. Premier fragment. Quelque part dans le souvenir-ancre, une journée redevient brûlante." },
     { type: "flag", flags: { frag_chaleur: true } },
+    { type: "lexique", valeur: 1 },
     { type: "sfx", son: "carte" },
     { type: "aller", label: "retour" },
 
@@ -129,9 +131,9 @@ export default {
 
     { type: "choix", question: "Le mur en porte des centaines. Tu souffles quoi ?", options: [
       { texte: "« Trois. »",
-        effets: { flags: {} }, aller: "casbah_trois" },
+        effets: { rumeur: 1 }, aller: "casbah_trois" },
       { texte: "« Tous. »",
-        effets: { flags: { rumeur_folle: true } }, aller: "casbah_tous" }
+        effets: { rumeur: 5, flags: { rumeur_folle: true } }, aller: "casbah_tous" }
     ]},
 
     { type: "label", nom: "casbah_trois" },
@@ -150,6 +152,7 @@ export default {
     { type: "narration", texte: "Quand elle retire sa main, la pierre garde son empreinte — creusée, nette, comme si elle aussi avait existé assez fort pour abîmer un mur." },
     { type: "narration", texte: "LE MUR. Deuxième fragment. Quelque part dans le souvenir-ancre, un mur retrouve son grain sous une paume." },
     { type: "flag", flags: { frag_mur: true } },
+    { type: "lexique", valeur: 1 },
     { type: "sfx", son: "carte" },
     { type: "aller", label: "retour" },
 
@@ -173,9 +176,9 @@ export default {
 
     { type: "choix", question: "L'ombre attend une réponse. Tu souffles quoi ?", options: [
       { texte: "« Mens. »  — nier, dire que ce n'est pas elle",
-        effets: {}, aller: "cap_nie" },
+        effets: { rumeur: 3 }, aller: "cap_nie" },
       { texte: "« Prends. »  — accepter l'ombre, la porter",
-        effets: { flags: { assume_ombre: true } }, aller: "cap_assume" }
+        effets: { rumeur: 2, flags: { assume_ombre: true } }, aller: "cap_assume" }
     ]},
 
     { type: "label", nom: "cap_nie" },
@@ -198,6 +201,7 @@ export default {
 
     { type: "narration", texte: "L'OMBRE. Troisième fragment. Quelque part dans le souvenir-ancre, une ombre fraîche s'étend sur deux personnes assises." },
     { type: "flag", flags: { frag_ombre: true } },
+    { type: "lexique", valeur: 1 },
     { type: "sfx", son: "carte" },
     { type: "aller", label: "retour" },
 
@@ -212,6 +216,7 @@ export default {
         { type: "flag", flags: { retour1: true } },
         { type: "narration", texte: "Sur le chemin du retour, quelque chose se décoince en toi. Un mot. Un seul, mais entier." },
         { type: "dialogue", perso: "voix", texte: "Là." },
+        { type: "pensee", texte: "Un mot entier. Un vrai. Regarde en haut de l'écran : il y en a un de rempli. Il en reste trois à arracher." },
         { type: "dialogue", perso: "lamia-cendres", pose: "surprise", texte: "…tu as parlé ? Tu viens de parler." },
         { type: "narration", texte: "Elle rit. Un vrai rire, le premier depuis des semaines. La cendre, autour, recule d'un pas poli." }
       ],
@@ -256,6 +261,7 @@ export default {
     { type: "narration", texte: "Elle pose la main dessus. Le métal est chaud. Dans un pays où tout est tiède comme la cendre, la boîte, elle, est chaude comme une journée de mai." },
     { type: "narration", texte: "LA BOÎTE. Quatrième fragment. L'ancre est complète — la journée trop chaude, le mur, l'ombre, et elle." },
     { type: "flag", flags: { frag_boite: true } },
+    { type: "lexique", valeur: 1 },
     { type: "sfx", son: "carte" },
 
     { type: "attendre", duree: 1300 },
