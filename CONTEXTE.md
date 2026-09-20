@@ -100,9 +100,10 @@ Conditions déclaratives (jamais d'`eval`) : `flag`, `flagFaux`, `compliciteMin/
 
 | Quoi | Où |
 |---|---|
+| **7 décors Cendres** — l'arc bonus tourne **entièrement** sur des placeholders | lots 33-39 de `A-COPIER-COLLER.md` (local) |
 | `cendres.mp3` — la musique de l'arc bonus | prompt S6 de `PROMPTS-AUDIO.md` (local) |
-| 4 décors Cendres (Pic des Voleurs, Doyenne, Lanterne Morte, Eau Debout) | lots 33-36 de `A-COPIER-COLLER.md` (local) |
-| Cartes 16 (la Rumeur) et 17 (le Nom) | idem |
+| Cartes 14 (ailes de fer), 15 (le tiroir), 16 (la Rumeur), 17 (le Nom) | `A-COPIER-COLLER.md` |
+| 6 expressions Cendres (triste, surprise, sourire, pensive, gênée, regard) | lot 21 — cosmétique, elles retombent sur le sprite le plus proche |
 | Sprites Kenza / Zilasène | lot 20 |
 | **La dédicace de l'écran-titre** | `js/ui/ecrans.js`, fonction `ecranTitre` — **à écrire par Salas lui-même**, c'est la seule phrase du jeu qui ne doit pas venir d'une IA |
 
