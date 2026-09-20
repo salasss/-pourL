@@ -388,21 +388,46 @@
 /* ---------- HUD de l'arc Cendres : le lexique et la rumeur ---------- */
 .hud__cendres {
   display: flex;
-  align-items: baseline;
-  gap: var(--e-3);
+  align-items: center;
+  gap: var(--e-2);
+  /* un fond propre : le HUD doit rester lisible sur un décor clair */
+  padding: 5px var(--e-3);
+  border-radius: 999px;
+  background: rgba(7, 9, 12, .62);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(217, 213, 204, .22);
 }
-.hud__lexique {
-  font-size: var(--t-base);
-  letter-spacing: .3em;
-  color: var(--accent-vif);
-  text-shadow: 0 0 10px rgba(0, 0, 0, .9);
+.hud__etiquette {
+  font-size: var(--t-xs);
+  font-style: italic;
+  color: rgba(217, 213, 204, .62);
 }
+.hud__lexique { display: inline-flex; align-items: center; gap: 5px; }
+
+/* une pastille vide = un mot qui manque ; pleine = un mot retrouvé */
+.pastille {
+  display: inline-block;
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(216, 178, 92, .75);
+  background: transparent;
+  transition: background var(--d-std), box-shadow var(--d-std);
+}
+.pastille--pleine {
+  background: #d8b25c;
+  border-color: #d8b25c;
+  box-shadow: 0 0 8px rgba(216, 178, 92, .8);
+}
+.pastille--grosse { width: 13px; height: 13px; border-width: 2px; }
 .hud__rumeur {
   font-family: var(--titre);
   font-size: var(--t-sm);
   font-style: italic;
-  color: rgba(255, 255, 255, .8);
-  text-shadow: 0 1px 6px rgba(0, 0, 0, .8);
+  color: rgba(255, 255, 255, .92);
+  padding-left: var(--e-2);
+  margin-left: var(--e-1);
+  border-left: 1px solid rgba(217, 213, 204, .22);
 }
 .hud__cendres--bat .hud__lexique { animation: battement .6s var(--courbe); display: inline-block; }
 
@@ -419,6 +444,14 @@
 /* le toast quand un mot revient : pas de vignette, que du texte */
 .toast--mot { padding-left: var(--e-5); }
 .toast--mot .toast__titre {
-  letter-spacing: .3em;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.toast__phrase {
+  font-family: var(--corps);
+  font-style: italic;
+  font-size: var(--t-sm);
   color: var(--accent-vif);
+  margin-left: var(--e-2);
 }

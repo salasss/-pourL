@@ -2,7 +2,7 @@
    MAIN — assemblage et boucle de jeu
    ============================================================ */
 
-import { etat, charger, sauver } from "./moteur/etat.js";
+import { etat, charger, sauver, VERSION_JEU } from "./moteur/etat.js";
 import { ORDRE } from "./donnees/chapitres/index.js";
 import { initScene, viderSprites } from "./moteur/scene.js";
 import { initAudio, arreterMusique } from "./moteur/audio.js";
@@ -77,6 +77,7 @@ function ouvrirMenu() {
 /* ---------- démarrage ---------- */
 
 function demarrer() {
+  console.log("pourL — build " + VERSION_JEU);
   initScene();
   initDialogue();
   initAudio();

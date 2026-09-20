@@ -2,7 +2,7 @@
    ÉCRANS — titre, chapitres, galerie, journal, réglages, fin
    ============================================================ */
 
-import { etat, sauver, effacer, aUneSauvegarde, palier } from "../moteur/etat.js";
+import { etat, sauver, effacer, aUneSauvegarde, palier, VERSION_JEU } from "../moteur/etat.js";
 import { CARTES, ORDRE_CARTES } from "../donnees/cartes.js";
 import { SOUVENIRS, ORDRE_SOUVENIRS } from "../donnees/souvenirs.js";
 import { ORDRE, metaParId, estAccessible, scelle, essaieCle, chapitreParId } from "../donnees/chapitres/index.js";
@@ -331,6 +331,7 @@ export function ecranReglages() {
       <button class="bouton bouton--fantome" data-act="titre">Retour au titre</button>
       <button class="bouton bouton--fantome" id="r-effacer">Effacer la sauvegarde</button>
     </div>
+    <p class="ecran__version">version ${echappe(VERSION_JEU)}</p>
   `));
 
   $("r-vitesse").addEventListener("input", e => {

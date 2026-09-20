@@ -5,6 +5,10 @@
 const CLE = "vn-lamia-v1";
 const VERSION = 1;
 
+/** Numéro de build — sert à vérifier d'un coup d'œil que le navigateur
+ *  ne sert pas une vieille version en cache. Visible dans les Réglages. */
+export const VERSION_JEU = "2026.09.20b";
+
 export const PALIERS = [
   { min: 40, nom: "Évidence" },
   { min: 25, nom: "C'est plus que ça" },

@@ -33,13 +33,15 @@ export function titreChapitre(texte) {
 export function majHud({ anime = false } = {}) {
   // Deux jauges selon la peau : le cœur dans les chapitres réels,
   // le lexique + la rumeur dans l'arc Cendres.
+  // Tout est défensif : si le navigateur sert un vieil index.html en cache,
+  // le HUD se dégrade au lieu de casser toute la boucle de jeu.
   const cendres = document.documentElement.classList.contains("peau-cendres");
-  els.coeur.hidden = cendres;
-  els.cendres.hidden = !cendres;
+  if (els.coeur)   els.coeur.hidden = cendres;
+  if (els.cendres) els.cendres.hidden = !cendres;
 
-  if (cendres) {
-    els.lexique.textContent =
-      "●".repeat(etat.lexique) + "○".repeat(Math.max(0, LEXIQUE_MAX - etat.lexique));
+  if (cendres && els.cendres && els.lexique && els.rumeur) {
+    els.lexique.innerHTML = Array.from({ length: LEXIQUE_MAX }, (_, i) =>
+      `<i class="pastille${i < etat.lexique ? " pastille--pleine" : ""}"></i>`).join("");
     els.rumeur.textContent = palierRumeur();
     if (anime) {
       els.cendres.classList.remove("hud__cendres--bat");
@@ -50,6 +52,7 @@ export function majHud({ anime = false } = {}) {
     return;
   }
 
+  if (!els.rect || !els.palier) return;
   const r = ratioComplicite();
   // le cœur se remplit par le bas
   els.rect.setAttribute("y", String(22 - 22 * r));
@@ -67,11 +70,13 @@ let minuteurToast;
 
 /** Un mot revient à la voix : on le montre, ça ne doit pas passer inaperçu. */
 export function toastMot() {
+  if (!els.toast || !els.toastSur) return;
   els.toastImg.hidden = true;
   els.toastSur.textContent = "Un mot te revient";
-  els.toastTit.textContent =
-    "●".repeat(etat.lexique) + "○".repeat(Math.max(0, LEXIQUE_MAX - etat.lexique)) +
-    (etat.lexique >= LEXIQUE_MAX ? "   une phrase entière" : "");
+  els.toastTit.innerHTML =
+    Array.from({ length: LEXIQUE_MAX }, (_, i) =>
+      `<i class="pastille pastille--grosse${i < etat.lexique ? " pastille--pleine" : ""}"></i>`).join("") +
+    (etat.lexique >= LEXIQUE_MAX ? ' <span class="toast__phrase">une phrase entière</span>' : "");
   els.toast.classList.add("toast--mot");
   afficherToast();
   jouerSfx("coeur");

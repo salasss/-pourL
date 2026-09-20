@@ -571,3 +571,11 @@
   font-style: italic;
   color: var(--encre-douce);
 }
+
+.ecran__version {
+  margin-top: var(--e-6);
+  font-size: var(--t-sm);
+  font-style: italic;
+  color: var(--encre-douce);
+  opacity: .6;
+}
