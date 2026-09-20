@@ -65,7 +65,6 @@ export const PERSONNAGES = {
     }
   },
 
-  kenza:    { nom: "Kenza",    position: "gauche", poses: { neutre: S + "kenza.webp" } },
   zilasene: { nom: "Zilasène", position: "gauche", poses: { neutre: S + "zilasene.webp" } },
 
   /* voix sans sprite */

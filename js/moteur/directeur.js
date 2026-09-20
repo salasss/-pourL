@@ -59,7 +59,9 @@ function prechargerChapitre(ch) {
     }
     if (n.type === "perso" || n.type === "dialogue") {
       const p = PERSONNAGES[n.id || n.perso];
-      if (p?.poses) Object.values(p.poses).forEach(s => chemins.push(s));
+      // une pose peut etre une chaine OU un tableau de replis : on aplatit,
+      // sinon le tableau part tel quel dans img.src et devient "a.webp,b.webp".
+      if (p?.poses) Object.values(p.poses).flat().forEach(s => chemins.push(s));
     }
     if (n.type === "carte") { const c = CARTES[n.id]; if (c?.src) chemins.push(c.src); }
   });

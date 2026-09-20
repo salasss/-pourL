@@ -100,11 +100,15 @@ Conditions déclaratives (jamais d'`eval`) : `flag`, `flagFaux`, `compliciteMin/
 
 | Quoi | Où |
 |---|---|
+**13 fichiers, et rien de plus** — l'inventaire est à jour (voir piège 9).
+
+| Quoi | Où |
+|---|---|
 | **7 décors Cendres** — l'arc bonus tourne **entièrement** sur des placeholders | lots 33-39 de `A-COPIER-COLLER.md` (local) |
 | `cendres.mp3` — la musique de l'arc bonus | prompt S6 de `PROMPTS-AUDIO.md` (local) |
 | Cartes 14 (ailes de fer), 15 (le tiroir), 16 (la Rumeur), 17 (le Nom) | `A-COPIER-COLLER.md` |
+| **1 sprite : Zilasène** — Kenza est nommée dans le texte, jamais affichée | lot 20 |
 | 6 expressions Cendres (triste, surprise, sourire, pensive, gênée, regard) | lot 21 — cosmétique, elles retombent sur le sprite le plus proche |
-| Sprites Kenza / Zilasène | lot 20 |
 | **La dédicace de l'écran-titre** | `js/ui/ecrans.js`, fonction `ecranTitre` — **à écrire par Salas lui-même**, c'est la seule phrase du jeu qui ne doit pas venir d'une IA |
 
 Rien de tout ça n'est bloquant : les images manquantes deviennent des
@@ -157,6 +161,14 @@ Aucun game over : le mauvais choix est juste un peu triste.
 7. **Un sprite manquant retombe sur le plus proche** (chaîne de chemins dans
    `personnages.js`). Sans ça, une scène triste affiche un visage neutre en
    silence.
+8. **Une pose peut être une chaîne OU un tableau de replis.** Tout code qui
+   parcourt `poses` doit aplatir (`.flat()`). Le préchargeur poussait le tableau
+   tel quel : `img.src` le transformait en `"a.webp,b.webp"`, une URL bidon en
+   404, et **aucune pose à repli n'était préchargée** — donc du pop-in de sprite
+   sur tous les chapitres en tenue d'été. Corrigé dans `directeur.js`.
+9. **Aucune entrée déclarée « pour plus tard ».** Un décor que nul chapitre
+   n'appelle fait mentir l'inventaire des images restantes : dix entrées mortes
+   gonflaient le décompte de 13 à 30.
 
 ---
 
@@ -186,7 +198,7 @@ jeu lui-même, on ne peut rien y faire.
 
 Le numéro de build est affiché **en bas de l'écran Réglages** et dans la console
 du navigateur (`pourL — build …`). Il vit dans `js/moteur/etat.js`
-(`VERSION_JEU`). Si l'écran ne montre pas ce qu'on vient de coder :
+(`VERSION_JEU`), aujourd'hui `2026.09.20c`. Si l'écran ne montre pas ce qu'on vient de coder :
 **Ctrl + Shift + R**, puis comparer le numéro.
 
 Les feuilles de style et `main.js` portent un `?v=` dans `index.html` — le bumper
