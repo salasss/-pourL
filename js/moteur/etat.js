@@ -7,7 +7,7 @@ const VERSION = 1;
 
 /** Numéro de build — sert à vérifier d'un coup d'œil que le navigateur
  *  ne sert pas une vieille version en cache. Visible dans les Réglages. */
-export const VERSION_JEU = "2026.10.11d";
+export const VERSION_JEU = "2026.10.11e";
 
 export const PALIERS = [
   { min: 40, nom: "Évidence" },

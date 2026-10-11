@@ -99,15 +99,12 @@ Conditions déclaratives (jamais d'`eval`) : `flag`, `flagFaux`, `compliciteMin/
 
 ### Reste à faire
 
-**5 fichiers sur 85**, plus deux sprites à refaire. Prompts prêts dans
-`A-FAIRE-MAINTENANT.md` (local).
+**3 fichiers sur 85.** Décors 20/20, cartes 17/17, musique 6/6, et les dix
+sprites de Lamia sont tous à la même échelle.
 
 | Quoi | Lot | Effet aujourd'hui |
 |---|---|---|
-| `kefrida-cendres` — dernier décor de l'arc | 36 | placeholder |
-| `carte-17-nom` — la carte finale | 41 | galerie à 16/17 |
-| 3 sprites d'adversaires (Chuchotis, Procession, Greffier) | 42-44 | placeholder dans les combats |
-| refaire `epuisee` + `marquee` | 21C | cadrées en pied : tête 38 pour cent trop petite |
+| Les 3 adversaires des Veilles (Chuchotis, Procession, Greffier) | 42-44 | placeholder — les combats se jouent, sans visage |
 
 Plus **la dédicace de l'écran-titre** (`js/ui/ecrans.js`, fonction `ecranTitre`) :
 celle qui s'y trouve a été écrite par une IA, c'est la seule phrase du jeu qui
@@ -118,9 +115,7 @@ contrôle naïf. Le fichier n'existe pas pour autant, et c'est une autre émotio
 s'affiche. Compter les chemins, pas les replis.
 
 **Kenza et Zilasène n'ont pas de sprite**, et c'est voulu : ce sont des voix,
-comme Salas. Zilasène avait une scène au chapitre 1 ; plutôt que de laisser un
-placeholder gris pour trois répliques, on l'entend sans le voir. Le motif est
-dans `personnages.js` — `poses: {}`.
+comme Salas. Le motif est dans `personnages.js` — `poses: {}`.
 
 Rien de tout ça n'est bloquant : les images manquantes deviennent des
 placeholders propres, le son manquant reste silencieux.
