@@ -2,8 +2,8 @@
    DIALOGUE — boîte de texte, machine à écrire, choix
    ============================================================ */
 
-import { etat, dejaLu, marquerLu } from "../moteur/etat.js";
-import { jouerSfx } from "../moteur/audio.js";
+import { etat, dejaLu, marquerLu } from "../moteur/etat.js?v=20261011i";
+import { jouerSfx } from "../moteur/audio.js?v=20261011i";
 
 const $ = id => document.getElementById(id);
 const els = {};

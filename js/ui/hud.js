@@ -2,10 +2,10 @@
    HUD — barre du haut : chapitre, jauge de complicité, menu
    ============================================================ */
 
-import { etat, palier, ratioComplicite, palierRumeur, LEXIQUE_MAX } from "../moteur/etat.js";
-import { CARTES } from "../donnees/cartes.js";
-import { urlOuPlaceholder } from "../moteur/placeholder.js";
-import { jouerSfx } from "../moteur/audio.js";
+import { etat, palier, ratioComplicite, palierRumeur, LEXIQUE_MAX } from "../moteur/etat.js?v=20261011i";
+import { CARTES } from "../donnees/cartes.js?v=20261011i";
+import { urlOuPlaceholder } from "../moteur/placeholder.js?v=20261011i";
+import { jouerSfx } from "../moteur/audio.js?v=20261011i";
 
 const $ = id => document.getElementById(id);
 const els = {};

@@ -2,9 +2,9 @@
    SCÈNE — décors, sprites, voiles, illustrations, cartons
    ============================================================ */
 
-import { urlOuPlaceholder } from "./placeholder.js";
-import { DECORS } from "../donnees/decors.js";
-import { PERSONNAGES } from "../donnees/personnages.js";
+import { urlOuPlaceholder } from "./placeholder.js?v=20261011i";
+import { DECORS } from "../donnees/decors.js?v=20261011i";
+import { PERSONNAGES } from "../donnees/personnages.js?v=20261011i";
 
 const $ = id => document.getElementById(id);
 

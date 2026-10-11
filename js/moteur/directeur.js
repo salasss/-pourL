@@ -6,16 +6,16 @@
 import {
   etat, sauver, appliquerEffets, debloquerCarte, debloquerSouvenir,
   terminerChapitre, aFlag, aCarte, aFini
-} from "./etat.js";
-import * as scene from "./scene.js";
-import * as audio from "./audio.js";
-import { jouerVeille } from "./veille.js";
-import { replique, proposerChoix, cacherBoite, attendreClic } from "../ui/dialogue.js";
-import { majHud, toastCarte, toastMot, titreChapitre } from "../ui/hud.js";
-import { PERSONNAGES } from "../donnees/personnages.js";
-import { CARTES } from "../donnees/cartes.js";
-import { DECORS } from "../donnees/decors.js";
-import { precharger } from "./placeholder.js";
+} from "./etat.js?v=20261011i";
+import * as scene from "./scene.js?v=20261011i";
+import * as audio from "./audio.js?v=20261011i";
+import { jouerVeille } from "./veille.js?v=20261011i";
+import { replique, proposerChoix, cacherBoite, attendreClic } from "../ui/dialogue.js?v=20261011i";
+import { majHud, toastCarte, toastMot, titreChapitre } from "../ui/hud.js?v=20261011i";
+import { PERSONNAGES } from "../donnees/personnages.js?v=20261011i";
+import { CARTES } from "../donnees/cartes.js?v=20261011i";
+import { DECORS } from "../donnees/decors.js?v=20261011i";
+import { precharger } from "./placeholder.js?v=20261011i";
 
 /* ---------- conditions déclaratives ---------- */
 

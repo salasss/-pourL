@@ -2,16 +2,16 @@
    MAIN — assemblage et boucle de jeu
    ============================================================ */
 
-import { etat, charger, sauver, VERSION_JEU } from "./moteur/etat.js";
-import { ORDRE } from "./donnees/chapitres/index.js";
-import { initScene, viderSprites } from "./moteur/scene.js";
-import { initAudio, arreterMusique } from "./moteur/audio.js";
-import { initDialogue, brancherInteractions, cacherBoite } from "./ui/dialogue.js";
-import { initVeille } from "./moteur/veille.js";
-import { initHud, majHud, afficherHud } from "./ui/hud.js";
-import * as ecrans from "./ui/ecrans.js";
-import { jouerChapitre as lireChapitre, stopper } from "./moteur/directeur.js";
-import { chapitreParId } from "./donnees/chapitres/index.js";
+import { etat, charger, sauver, VERSION_JEU } from "./moteur/etat.js?v=20261011i";
+import { ORDRE } from "./donnees/chapitres/index.js?v=20261011i";
+import { initScene, viderSprites } from "./moteur/scene.js?v=20261011i";
+import { initAudio, arreterMusique } from "./moteur/audio.js?v=20261011i";
+import { initDialogue, brancherInteractions, cacherBoite } from "./ui/dialogue.js?v=20261011i";
+import { initVeille } from "./moteur/veille.js?v=20261011i";
+import { initHud, majHud, afficherHud } from "./ui/hud.js?v=20261011i";
+import * as ecrans from "./ui/ecrans.js?v=20261011i";
+import { jouerChapitre as lireChapitre, stopper } from "./moteur/directeur.js?v=20261011i";
+import { chapitreParId } from "./donnees/chapitres/index.js?v=20261011i";
 
 let enCours = false;
 
@@ -19,10 +19,14 @@ let enCours = false;
 
 const actions = {
   async nouvellePartie() {
+    // On garde les cles du bonus : elles ont ete donnees une fois, a la main.
+    // Les effacer refermerait l'arc Cendres sans moyen de le rouvrir.
+    const cles = {};
+    for (const k of Object.keys(etat.flags)) if (k.startsWith("cle_")) cles[k] = etat.flags[k];
     etat.chapitre = "ch00";
     etat.index = 0;
     etat.complicite = 0;
-    etat.flags = {};
+    etat.flags = cles;
     sauver();
     await lancer("ch00", 0);
   },
@@ -95,7 +99,11 @@ function demarrer() {
   const enLocal = ["localhost", "127.0.0.1"].includes(location.hostname);
   const vierge = new URLSearchParams(location.search).has("vierge");
   if (enLocal && !vierge && !etat.flags.__grainDev) {
-    ORDRE.filter(c => !c.codeJJMM).forEach(c => {
+    // Seulement l'histoire vraie. Marquer aussi les chapitres bonus les
+    // faisait passer pour deja joues : cendres03 apparaissait deverrouille
+    // sans avoir joue les deux premiers, donc sans aucun mot du Lexique et
+    // sans avoir croise les deux premieres Veilles.
+    ORDRE.filter(c => !c.cendres).forEach(c => {
       if (!etat.chapitresFinis.includes(c.id)) etat.chapitresFinis.push(c.id);
     });
     etat.flags.__grainDev = true;

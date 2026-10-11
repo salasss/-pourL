@@ -2,13 +2,13 @@
    ÉCRANS — titre, chapitres, galerie, journal, réglages, fin
    ============================================================ */
 
-import { etat, sauver, effacer, aUneSauvegarde, palier, VERSION_JEU } from "../moteur/etat.js";
-import { CARTES, ORDRE_CARTES } from "../donnees/cartes.js";
-import { SOUVENIRS, ORDRE_SOUVENIRS } from "../donnees/souvenirs.js";
-import { ORDRE, metaParId, estAccessible, scelle, essaieCle, chapitreParId } from "../donnees/chapitres/index.js";
-import { urlOuPlaceholder, svgManquant } from "../moteur/placeholder.js";
-import { DECORS } from "../donnees/decors.js";
-import { volumeMusique } from "../moteur/audio.js";
+import { etat, sauver, effacer, aUneSauvegarde, palier, VERSION_JEU } from "../moteur/etat.js?v=20261011i";
+import { CARTES, ORDRE_CARTES } from "../donnees/cartes.js?v=20261011i";
+import { SOUVENIRS, ORDRE_SOUVENIRS } from "../donnees/souvenirs.js?v=20261011i";
+import { ORDRE, metaParId, estAccessible, scelle, essaieCle, chapitreParId } from "../donnees/chapitres/index.js?v=20261011i";
+import { urlOuPlaceholder, svgManquant } from "../moteur/placeholder.js?v=20261011i";
+import { DECORS } from "../donnees/decors.js?v=20261011i";
+import { volumeMusique } from "../moteur/audio.js?v=20261011i";
 
 const $ = id => document.getElementById(id);
 const ecran = () => $("ecran");
@@ -74,7 +74,6 @@ export async function ecranTitre() {
           ${reprise ? `<button class="affiche__lien affiche__lien--principal" data-act="reprendre">
               Reprendre — ${echappe(meta ? meta.titre : "")}
             </button>` : `<button class="affiche__lien affiche__lien--principal" data-act="nouveau">Commencer</button>`}
-          ${reprise ? `<button class="affiche__lien" data-act="nouveau">Recommencer</button>` : ""}
           <button class="affiche__lien" data-act="chapitres">Chapitres</button>
           <button class="affiche__lien" data-act="galerie">Souvenirs</button>
           <button class="affiche__lien" data-act="journal">Journal</button>
@@ -123,8 +122,11 @@ export async function ecranChapitres() {
     // les chapitres cachés n'existent pas tant que le précédent n'est pas lu
     if (c.cache && !(idx > 0 && etat.chapitresFinis.includes(ORDRE[idx - 1].id))) return "";
     const ecrit = !!chapitreParId(c.id);
-    const ouvert = ecrit && estAccessible(c.id, etat.chapitresFinis, etat.flags);
     const fini = etat.chapitresFinis.includes(c.id);
+    // Un chapitre de l'histoire vraie, une fois lu, se referme : elle l'a
+    // vecu, elle ne le rejoue pas. Les chapitres bonus restent ouverts.
+    const clos = fini && !c.cendres;
+    const ouvert = ecrit && !clos && estAccessible(c.id, etat.chapitresFinis, etat.flags);
     const precedentFini = ORDRE.findIndex(x => x.id === c.id) <= 0 ||
       etat.chapitresFinis.includes(ORDRE[ORDRE.findIndex(x => x.id === c.id) - 1].id);
     const souSceau = scelle(c, etat.flags) && precedentFini;
@@ -147,7 +149,7 @@ export async function ecranChapitres() {
 
     return `<button class="pola ${c.cendres ? "pola--cendres" : ""}" data-ch="${c.id}"
               ${ouvert ? "" : "disabled"}>
-      ${fini ? `<span class="pola__lu">lu</span>` : ""}
+      ${fini ? `<span class="pola__lu">${clos ? "terminé" : "lu"}</span>` : ""}
       ${visuel}
       <span class="pola__legende">
         <span class="pola__num">${c.cendres ? "bonus" : "chapitre " + echappe(c.numero)}</span>
@@ -161,8 +163,8 @@ export async function ecranChapitres() {
     <p class="ecran__sur">notre histoire</p>
     <h2 class="ecran__titre">Chapitres</h2>
     <p class="ecran__intro">
-      Chaque carte est un morceau de l'histoire. Elles se déverrouillent dans l'ordre —
-      et tu peux rejouer celles que tu as déjà lues.
+      Chaque carte est un morceau de l'histoire. Elles se déverrouillent dans l'ordre.
+      Celles que tu as déjà vécues se referment — on ne relit pas sa propre vie.
     </p>
     <div class="mur">${cartes.join("")}</div>
     ${pied()}
