@@ -20,3 +20,7 @@ A-FAIRE-MAINTENANT.md
 Gemini_Generated_Image_*
 *.png
 !assets/**/*.png
+
+# bruitages tiers extraits d'un jeu commercial — jamais dans le depot
+Misc/
+*.wav

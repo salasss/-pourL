@@ -7,7 +7,7 @@ const VERSION = 1;
 
 /** Numéro de build — sert à vérifier d'un coup d'œil que le navigateur
  *  ne sert pas une vieille version en cache. Visible dans les Réglages. */
-export const VERSION_JEU = "2026.10.11k";
+export const VERSION_JEU = "2026.10.12a";
 
 export const PALIERS = [
   { min: 40, nom: "Évidence" },
@@ -22,8 +22,16 @@ function neuf() {
     chapitre: null,
     index: 0,
     complicite: 0,
-    lexique: 0,        // mots rendus à la voix (arc Cendres)
-    rumeur: 0,         // ce que la ville raconte d'elle (arc Cendres)
+    /* ---- arc Cendres : l'économie du Serment ----
+       Trois monnaies, aucune gratuite. La cendre est ce que ça coûte à son
+       corps et elle NE REDESCEND JAMAIS de tout l'arc. Les abandons sont ce
+       qu'elle a laissé partir. Les mots sont la voix du joueur : chaque mot
+       dit pour la sauver est un mot qu'il ne pourra plus lui dire à la fin. */
+    cendre: 0,
+    abandons: 0,
+    mots: { chaleur: "absent", mur: "absent", ombre: "absent", boite: "absent" },
+    lexique: 0,        // nombre de mots en main — dérivé de `mots`, tenu à jour
+    rumeur: 0,         // ce que la ville raconte d'elle
     flags: {},
     cartes: [],
     souvenirs: [],
@@ -116,6 +124,64 @@ export function palierRumeur(valeur = etat.rumeur) {
 export function aFlag(nom)   { return !!etat.flags[nom]; }
 export function aCarte(id)   { return etat.cartes.includes(id); }
 export function aFini(idCh)  { return etat.chapitresFinis.includes(idCh); }
+
+/* ---------- l'économie du Serment ---------- */
+
+/* Calibrage de la cendre. Valeurs de travail : l'échelle définitive dépend
+   du format 3/3/4 et sera figée quand les coûts de TENIR le seront. */
+export const CENDRE_MAX     = 15;   // échelle de la jauge
+export const CENDRE_ALERTE  = 9;    // « la cendre lui monte au poignet »
+export const SEUIL_COUVERTE = 12;   // au-delà, elle ne peut plus rien TENIR
+
+/** Couverte : ses mains sont de la cendre. Seule règle dérivée du système. */
+export function couverte() { return etat.cendre >= SEUIL_COUVERTE; }
+
+
+/** Les quatre fragments, dans l'ordre où le serment les dit. */
+export const MOTS = [
+  { id: "chaleur", nom: "LA CHALEUR" },
+  { id: "mur",     nom: "LE MUR" },
+  { id: "ombre",   nom: "L'OMBRE" },
+  { id: "boite",   nom: "LA BOÎTE" }
+];
+
+/** « absent » pas encore trouvé · « intacte » / « ternie » en main · « dit » dépensé. */
+export function motsEnMain() {
+  return MOTS.filter(m => ["intacte", "ternie"].includes(etat.mots[m.id])).length;
+}
+
+export function aLeMot(id) {
+  return ["intacte", "ternie"].includes(etat.mots[id]);
+}
+
+/** Un lieu rend un fragment. `ternie` si on l'a mal défendu en chemin. */
+export function acquerirMot(id, etatMot = "intacte") {
+  if (!etat.mots[id] || etat.mots[id] === "absent") {
+    etat.mots[id] = etatMot;
+    etat.lexique = motsEnMain();
+    sauver();
+  }
+}
+
+/** Dépenser un mot : définitif. C'est le prix, pas une ressource qui revient. */
+export function direMot(id) {
+  if (!aLeMot(id)) return false;
+  etat.mots[id] = "dit";
+  etat.lexique = motsEnMain();
+  sauver();
+  return true;
+}
+
+/** La cendre ne redescend jamais. C'est toute la règle. */
+export function monterCendre(n) {
+  etat.cendre = Math.max(0, etat.cendre + n);
+  sauver();
+}
+
+export function abandonner(n = 1) {
+  etat.abandons += n;
+  sauver();
+}
 
 /* ---------- écritures ---------- */
 

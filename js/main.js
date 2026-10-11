@@ -2,16 +2,16 @@
    MAIN — assemblage et boucle de jeu
    ============================================================ */
 
-import { etat, charger, sauver, VERSION_JEU } from "./moteur/etat.js?v=20261011k";
-import { ORDRE } from "./donnees/chapitres/index.js?v=20261011k";
-import { initScene, viderSprites } from "./moteur/scene.js?v=20261011k";
-import { initAudio, arreterMusique } from "./moteur/audio.js?v=20261011k";
-import { initDialogue, brancherInteractions, cacherBoite } from "./ui/dialogue.js?v=20261011k";
-import { initVeille } from "./moteur/veille.js?v=20261011k";
-import { initHud, majHud, afficherHud } from "./ui/hud.js?v=20261011k";
-import * as ecrans from "./ui/ecrans.js?v=20261011k";
-import { jouerChapitre as lireChapitre, stopper } from "./moteur/directeur.js?v=20261011k";
-import { chapitreParId, estAccessible } from "./donnees/chapitres/index.js?v=20261011k";
+import { etat, charger, sauver, VERSION_JEU } from "./moteur/etat.js?v=20261012a";
+import { ORDRE } from "./donnees/chapitres/index.js?v=20261012a";
+import { initScene, viderSprites } from "./moteur/scene.js?v=20261012a";
+import { initAudio, arreterMusique } from "./moteur/audio.js?v=20261012a";
+import { initDialogue, brancherInteractions, cacherBoite } from "./ui/dialogue.js?v=20261012a";
+import { initVeille } from "./moteur/veille.js?v=20261012a";
+import { initHud, majHud, afficherHud } from "./ui/hud.js?v=20261012a";
+import * as ecrans from "./ui/ecrans.js?v=20261012a";
+import { jouerChapitre as lireChapitre, stopper } from "./moteur/directeur.js?v=20261012a";
+import { chapitreParId, estAccessible } from "./donnees/chapitres/index.js?v=20261012a";
 
 let enCours = false;
 

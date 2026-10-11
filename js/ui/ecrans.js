@@ -2,13 +2,13 @@
    ÉCRANS — titre, chapitres, galerie, journal, réglages, fin
    ============================================================ */
 
-import { etat, sauver, effacer, aUneSauvegarde, palier, VERSION_JEU } from "../moteur/etat.js?v=20261011k";
-import { CARTES, ORDRE_CARTES } from "../donnees/cartes.js?v=20261011k";
-import { SOUVENIRS, ORDRE_SOUVENIRS } from "../donnees/souvenirs.js?v=20261011k";
-import { ORDRE, metaParId, estAccessible, scelle, essaieCle, chapitreParId } from "../donnees/chapitres/index.js?v=20261011k";
-import { urlOuPlaceholder, svgManquant } from "../moteur/placeholder.js?v=20261011k";
-import { DECORS } from "../donnees/decors.js?v=20261011k";
-import { volumeMusique } from "../moteur/audio.js?v=20261011k";
+import { etat, sauver, effacer, aUneSauvegarde, palier, VERSION_JEU } from "../moteur/etat.js?v=20261012a";
+import { CARTES, ORDRE_CARTES } from "../donnees/cartes.js?v=20261012a";
+import { SOUVENIRS, ORDRE_SOUVENIRS } from "../donnees/souvenirs.js?v=20261012a";
+import { ORDRE, metaParId, estAccessible, scelle, essaieCle, chapitreParId } from "../donnees/chapitres/index.js?v=20261012a";
+import { urlOuPlaceholder, svgManquant } from "../moteur/placeholder.js?v=20261012a";
+import { DECORS } from "../donnees/decors.js?v=20261012a";
+import { volumeMusique } from "../moteur/audio.js?v=20261012a";
 
 const $ = id => document.getElementById(id);
 const ecran = () => $("ecran");

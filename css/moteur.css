@@ -411,23 +411,44 @@
   font-style: italic;
   color: rgba(217, 213, 204, .62);
 }
-.hud__lexique { display: inline-flex; align-items: center; gap: 5px; }
-
-/* une pastille vide = un mot qui manque ; pleine = un mot retrouvé */
-.pastille {
+/* ---- la cendre : elle monte, elle ne redescend jamais ---- */
+.hud__jauge {
   display: inline-block;
-  width: 9px; height: 9px;
-  border-radius: 50%;
-  border: 1.5px solid rgba(216, 178, 92, .75);
-  background: transparent;
-  transition: background var(--d-std), box-shadow var(--d-std);
+  width: clamp(44px, 9vw, 82px);
+  height: 4px;
+  background: rgba(217, 213, 204, .18);
+  overflow: hidden;
 }
-.pastille--pleine {
-  background: #d8b25c;
-  border-color: #d8b25c;
-  box-shadow: 0 0 8px rgba(216, 178, 92, .8);
+.hud__jauge > i {
+  display: block;
+  height: 100%;
+  width: 100%;
+  transform-origin: left center;
+  background: #8b8478;
+  transition: scale var(--d-std) var(--courbe), background var(--d-std);
 }
-.pastille--grosse { width: 13px; height: 13px; border-width: 2px; }
+.hud__jauge > i.haute { background: #a53c27; }
+
+/* ---- les quatre fragments, toujours visibles ----
+   Un mot dépensé reste là, barré : c'est le seul endroit où le joueur
+   voit ce que sa voix lui a coûté. Sans ça, le prix n'existe qu'à la
+   dernière scène et tout le système retombe en habillage. */
+.hud__lexique {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+  font-family: var(--sans);
+  font-size: var(--t-xs);
+  letter-spacing: .06em;
+}
+.mot__sep { color: rgba(217, 213, 204, .3); font-style: normal; }
+
+.mot            { transition: color var(--d-std), opacity var(--d-std); }
+.mot--absent    { color: rgba(217, 213, 204, .3); letter-spacing: .2em; }
+.mot--intacte   { color: #d8b25c; }
+.mot--ternie    { color: #8b8478; }
+.mot--dit       { color: rgba(217, 213, 204, .34); text-decoration: line-through;
+                  text-decoration-thickness: 1px; }
 .hud__rumeur {
   font-family: var(--titre);
   font-size: var(--t-sm);
@@ -437,9 +458,14 @@
   margin-left: var(--e-1);
   border-left: 1px solid rgba(217, 213, 204, .22);
 }
-.hud__cendres--bat .hud__lexique { animation: battement .6s var(--courbe); display: inline-block; }
+.hud__cendres--bat .hud__lexique { animation: battement .6s var(--courbe); }
 
-@media (max-width: 480px) { .hud__rumeur { display: none; } }
+@media (max-width: 560px) {
+  .hud__rumeur    { display: none; }
+  .hud__etiquette { display: none; }
+  .hud__lexique   { font-size: 10px; letter-spacing: 0; gap: 3px; }
+  .hud__jauge     { width: 38px; }
+}
 
 /* ---------- le compte : un chiffre, un clic ---------- */
 .carton--compte .carton__texte {

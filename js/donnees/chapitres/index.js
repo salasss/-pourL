@@ -2,16 +2,16 @@
    REGISTRE DES CHAPITRES
    ============================================================ */
 
-import ch00 from "./ch00-prologue.js?v=20261011k";
-import ch01 from "./ch01-le-collier.js?v=20261011k";
-import ch02 from "./ch02-la-cafeteria.js?v=20261011k";
-import ch03 from "./ch03-7-mai.js?v=20261011k";
-import ch04 from "./ch04-annee-grise.js?v=20261011k";
-import ch05 from "./ch05-la-distance.js?v=20261011k";
-import reve01 from "./reve01-le-reve.js?v=20261011k";
-import cendres01 from "./cendres01-la-veilleuse.js?v=20261011k";
-import cendres02 from "./cendres02-les-quatre-fragments.js?v=20261011k";
-import cendres03 from "./cendres03-le-serment.js?v=20261011k";
+import ch00 from "./ch00-prologue.js?v=20261012a";
+import ch01 from "./ch01-le-collier.js?v=20261012a";
+import ch02 from "./ch02-la-cafeteria.js?v=20261012a";
+import ch03 from "./ch03-7-mai.js?v=20261012a";
+import ch04 from "./ch04-annee-grise.js?v=20261012a";
+import ch05 from "./ch05-la-distance.js?v=20261012a";
+import reve01 from "./reve01-le-reve.js?v=20261012a";
+import cendres01 from "./cendres01-la-veilleuse.js?v=20261012a";
+import cendres02 from "./cendres02-les-quatre-fragments.js?v=20261012a";
+import cendres03 from "./cendres03-le-serment.js?v=20261012a";
 
 /** Chapitres écrits et jouables. */
 export const CHAPITRES = { ch00, ch01, ch02, ch03, ch04, ch05, reve01,

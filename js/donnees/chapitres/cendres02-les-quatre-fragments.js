@@ -112,8 +112,7 @@ export default {
     { type: "narration", texte: "La pierre chauffe sa main, puis son bras, puis quelque chose derrière les côtes qui n'avait plus chauffé depuis longtemps." },
     { type: "narration", texte: "LA CHALEUR. Premier fragment. Quelque part dans le souvenir-ancre, une journée redevient brûlante." },
     { type: "flag", flags: { frag_chaleur: true } },
-    { type: "flag", flags: { mot_chaleur: true } },
-    { type: "lexique", valeur: 1 },
+    { type: "mot", id: "chaleur" },
     { type: "sfx", son: "carte" },
     { type: "aller", label: "retour" },
 
@@ -154,8 +153,7 @@ export default {
     { type: "narration", texte: "Quand elle retire sa main, la pierre garde son empreinte — creusée, nette, comme si elle aussi avait existé assez fort pour abîmer un mur." },
     { type: "narration", texte: "LE MUR. Deuxième fragment. Quelque part dans le souvenir-ancre, un mur retrouve son grain sous une paume." },
     { type: "flag", flags: { frag_mur: true } },
-    { type: "flag", flags: { mot_mur: true } },
-    { type: "lexique", valeur: 1 },
+    { type: "mot", id: "mur" },
     { type: "sfx", son: "carte" },
     { type: "aller", label: "retour" },
 
@@ -205,8 +203,7 @@ export default {
 
     { type: "narration", texte: "L'OMBRE. Troisième fragment. Quelque part dans le souvenir-ancre, une ombre fraîche s'étend sur deux personnes assises." },
     { type: "flag", flags: { frag_ombre: true } },
-    { type: "flag", flags: { mot_ombre: true } },
-    { type: "lexique", valeur: 1 },
+    { type: "mot", id: "ombre" },
     { type: "sfx", son: "carte" },
     { type: "aller", label: "retour" },
 
@@ -301,8 +298,7 @@ export default {
     { type: "narration", texte: "Elle pose la main dessus. Le métal est chaud. Dans un pays où tout est tiède comme la cendre, la boîte, elle, est chaude comme une journée de mai." },
     { type: "narration", texte: "LA BOÎTE. Quatrième fragment. L'ancre est complète — la journée trop chaude, le mur, l'ombre, et elle." },
     { type: "flag", flags: { frag_boite: true } },
-    { type: "flag", flags: { mot_boite: true } },
-    { type: "lexique", valeur: 1 },
+    { type: "mot", id: "boite" },
     { type: "sfx", son: "carte" },
 
     { type: "attendre", duree: 1300 },

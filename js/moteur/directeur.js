@@ -5,17 +5,17 @@
 
 import {
   etat, sauver, appliquerEffets, debloquerCarte, debloquerSouvenir,
-  terminerChapitre, aFlag, aCarte, aFini
-} from "./etat.js?v=20261011k";
-import * as scene from "./scene.js?v=20261011k";
-import * as audio from "./audio.js?v=20261011k";
-import { jouerVeille } from "./veille.js?v=20261011k";
-import { replique, proposerChoix, cacherBoite, attendreClic } from "../ui/dialogue.js?v=20261011k";
-import { majHud, toastCarte, toastMot, titreChapitre } from "../ui/hud.js?v=20261011k";
-import { PERSONNAGES } from "../donnees/personnages.js?v=20261011k";
-import { CARTES } from "../donnees/cartes.js?v=20261011k";
-import { DECORS } from "../donnees/decors.js?v=20261011k";
-import { precharger } from "./placeholder.js?v=20261011k";
+  terminerChapitre, aFlag, aCarte, aFini, acquerirMot
+} from "./etat.js?v=20261012a";
+import * as scene from "./scene.js?v=20261012a";
+import * as audio from "./audio.js?v=20261012a";
+import { jouerVeille } from "./veille.js?v=20261012a";
+import { replique, proposerChoix, cacherBoite, attendreClic } from "../ui/dialogue.js?v=20261012a";
+import { majHud, toastCarte, toastMot, titreChapitre } from "../ui/hud.js?v=20261012a";
+import { PERSONNAGES } from "../donnees/personnages.js?v=20261012a";
+import { CARTES } from "../donnees/cartes.js?v=20261012a";
+import { DECORS } from "../donnees/decors.js?v=20261012a";
+import { precharger } from "./placeholder.js?v=20261012a";
 
 /* ---------- conditions déclaratives ---------- */
 
@@ -236,10 +236,12 @@ async function executer(n, noeuds) {
       majHud({ anime: true });
       return;
 
-    case "lexique":
-      appliquerEffets({ lexique: n.valeur === undefined ? 1 : n.valeur });
+    case "mot":
+      // Un lieu rend un fragment du serment. `etat` vaut "intacte" ou
+      // "ternie" : un mot mal defendu en chemin se dira mal a la fin.
+      acquerirMot(n.id, n.etat || "intacte");
       majHud({ anime: true });
-      toastMot();
+      toastMot(n.id);
       await scene.attendre(1400);
       return;
 

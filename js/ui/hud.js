@@ -2,10 +2,11 @@
    HUD — barre du haut : chapitre, jauge de complicité, menu
    ============================================================ */
 
-import { etat, palier, ratioComplicite, palierRumeur, LEXIQUE_MAX } from "../moteur/etat.js?v=20261011k";
-import { CARTES } from "../donnees/cartes.js?v=20261011k";
-import { urlOuPlaceholder } from "../moteur/placeholder.js?v=20261011k";
-import { jouerSfx } from "../moteur/audio.js?v=20261011k";
+import { etat, palier, ratioComplicite, palierRumeur,
+         MOTS, motsEnMain, CENDRE_MAX, CENDRE_ALERTE } from "../moteur/etat.js?v=20261012a";
+import { CARTES } from "../donnees/cartes.js?v=20261012a";
+import { urlOuPlaceholder } from "../moteur/placeholder.js?v=20261012a";
+import { jouerSfx } from "../moteur/audio.js?v=20261012a";
 
 const $ = id => document.getElementById(id);
 const els = {};
@@ -17,6 +18,7 @@ export function initHud(surMenu) {
   els.palier   = $("hud-palier");
   els.cendres  = $("hud-cendres");
   els.lexique  = $("hud-lexique");
+  els.cendre   = $("hud-cendre");
   els.rumeur   = $("hud-rumeur");
   els.toast    = $("toast");
   els.toastImg = $("toast-img");
@@ -40,8 +42,19 @@ export function majHud({ anime = false } = {}) {
   if (els.cendres) els.cendres.hidden = !cendres;
 
   if (cendres && els.cendres && els.lexique && els.rumeur) {
-    els.lexique.innerHTML = Array.from({ length: LEXIQUE_MAX }, (_, i) =>
-      `<i class="pastille${i < etat.lexique ? " pastille--pleine" : ""}"></i>`).join("");
+    // Les quatre fragments, toujours visibles. Un mot dépensé reste affiché,
+    // barré : le joueur regarde son vocabulaire se réduire. Sans cet affichage
+    // permanent, le prix n'existe qu'à l'épilogue et tout retombe en habillage.
+    els.lexique.innerHTML = MOTS.map(m => {
+      const e = etat.mots?.[m.id] || "absent";
+      return `<span class="mot mot--${e}">${e === "absent" ? "___" : m.nom}</span>`;
+    }).join("<i class=\"mot__sep\">·</i>");
+
+    if (els.cendre) {
+      const part = Math.max(0, Math.min(1, (etat.cendre || 0) / CENDRE_MAX));
+      els.cendre.style.scale = part + " 1";
+      els.cendre.classList.toggle("haute", (etat.cendre || 0) >= CENDRE_ALERTE);
+    }
     els.rumeur.textContent = palierRumeur();
     if (anime) {
       els.cendres.classList.remove("hud__cendres--bat");
@@ -69,14 +82,16 @@ export function majHud({ anime = false } = {}) {
 let minuteurToast;
 
 /** Un mot revient à la voix : on le montre, ça ne doit pas passer inaperçu. */
-export function toastMot() {
+export function toastMot(id) {
   if (!els.toast || !els.toastSur) return;
   els.toastImg.hidden = true;
+  // On montre LE mot, pas un compteur. Ce qui revient a un nom.
+  const m = MOTS.find(x => x.id === id);
+  const reste = MOTS.length - motsEnMain();
   els.toastSur.textContent = "Un mot te revient";
   els.toastTit.innerHTML =
-    Array.from({ length: LEXIQUE_MAX }, (_, i) =>
-      `<i class="pastille pastille--grosse${i < etat.lexique ? " pastille--pleine" : ""}"></i>`).join("") +
-    (etat.lexique >= LEXIQUE_MAX ? ' <span class="toast__phrase">une phrase entière</span>' : "");
+    `<span class="toast__mot">${m ? m.nom : ""}</span>` +
+    (reste === 0 ? ' <span class="toast__phrase">une phrase entière</span>' : "");
   els.toast.classList.add("toast--mot");
   afficherToast();
   jouerSfx("coeur");

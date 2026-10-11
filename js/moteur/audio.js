@@ -4,8 +4,8 @@
    (politique d'autoplay des navigateurs).
    ============================================================ */
 
-import { etat } from "./etat.js?v=20261011k";
-import { MUSIQUES, BRUITAGES } from "../donnees/musiques.js?v=20261011k";
+import { etat } from "./etat.js?v=20261012a";
+import { MUSIQUES, BRUITAGES } from "../donnees/musiques.js?v=20261012a";
 
 let debloque = false;
 let courante = null;      // { id, audio }
