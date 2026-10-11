@@ -15,3 +15,8 @@ CLAUDE.md
 assets/_references/
 ranger-cendres.py
 A-FAIRE-MAINTENANT.md
+
+# sources brutes deposees a la racine — jamais dans le depot
+Gemini_Generated_Image_*
+*.png
+!assets/**/*.png
