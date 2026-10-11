@@ -144,8 +144,8 @@ export default {
     { type: "narration", texte: "Elles sortent de la bibliothèque par la porte basse. Dehors, la cendre est plus épaisse qu'en entrant." },
     { type: "narration", texte: "Et quelque part sous les remparts, très bas, quelque chose s'est mis à réciter." },
 
-    { type: "perso", id: "lamia-cendres", pose: "determinee", position: "gauche" },
-    { type: "perso", id: "ennemi-chuchotis", pose: "neutre", position: "droite" },
+    { type: "retirerPerso", id: "lamia-cendres" },
+    { type: "perso", id: "ennemi-chuchotis", pose: "neutre", position: "centre" },
     { type: "attendre", duree: 900 },
 
     { type: "veille", id: "chuchotis" },

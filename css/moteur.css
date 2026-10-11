@@ -41,6 +41,10 @@
   bottom: 0;
   height: var(--h-sprite);
   width: auto;
+  /* Les adversaires des Veilles sont bien plus larges que hauts (le Greffier
+     fait 1,65 fois sa hauteur). Sans ce plafond ils debordent sur telephone ;
+     `contain` + `bottom center` les reduisent proprement au lieu de rogner. */
+  max-width: 94vw;
   object-fit: contain;
   object-position: bottom center;
   filter: var(--ombre-sprite);

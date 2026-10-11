@@ -251,8 +251,8 @@ export default {
         { type: "narration", texte: "Elle s'arrête au milieu du chemin de ronde. En bas, dans la rue qui descend vers le port, il y a du monde. À cette heure-ci, il ne devrait y avoir personne." },
         { type: "dialogue", perso: "lamia-cendres", pose: "pensive", texte: "Ils descendent. Ils descendent tous dans le même sens." },
 
-        { type: "perso", id: "lamia-cendres", pose: "determinee", position: "gauche" },
-        { type: "perso", id: "ennemi-procession", pose: "neutre", position: "droite" },
+        { type: "retirerPerso", id: "lamia-cendres" },
+        { type: "perso", id: "ennemi-procession", pose: "neutre", position: "centre" },
         { type: "attendre", duree: 900 },
 
         { type: "veille", id: "procession" },

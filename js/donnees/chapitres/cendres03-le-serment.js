@@ -132,8 +132,8 @@ export default {
     { type: "attendre", duree: 1200 },
     { type: "narration", texte: "Le Greffier ne hausse pas le ton. Il ouvre un registre, mouille son pouce, et cherche la bonne page comme on cherche un dossier en retard." },
 
-    { type: "perso", id: "lamia-cendres", pose: "determinee", position: "gauche" },
-    { type: "perso", id: "ennemi-greffier", pose: "neutre", position: "droite" },
+    { type: "retirerPerso", id: "lamia-cendres" },
+    { type: "perso", id: "ennemi-greffier", pose: "neutre", position: "centre" },
     { type: "attendre", duree: 900 },
 
     { type: "veille", id: "greffier" },
