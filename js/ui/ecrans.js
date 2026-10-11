@@ -2,13 +2,13 @@
    ÉCRANS — titre, chapitres, galerie, journal, réglages, fin
    ============================================================ */
 
-import { etat, sauver, effacer, aUneSauvegarde, palier, VERSION_JEU } from "../moteur/etat.js?v=20261011i";
-import { CARTES, ORDRE_CARTES } from "../donnees/cartes.js?v=20261011i";
-import { SOUVENIRS, ORDRE_SOUVENIRS } from "../donnees/souvenirs.js?v=20261011i";
-import { ORDRE, metaParId, estAccessible, scelle, essaieCle, chapitreParId } from "../donnees/chapitres/index.js?v=20261011i";
-import { urlOuPlaceholder, svgManquant } from "../moteur/placeholder.js?v=20261011i";
-import { DECORS } from "../donnees/decors.js?v=20261011i";
-import { volumeMusique } from "../moteur/audio.js?v=20261011i";
+import { etat, sauver, effacer, aUneSauvegarde, palier, VERSION_JEU } from "../moteur/etat.js?v=20261011k";
+import { CARTES, ORDRE_CARTES } from "../donnees/cartes.js?v=20261011k";
+import { SOUVENIRS, ORDRE_SOUVENIRS } from "../donnees/souvenirs.js?v=20261011k";
+import { ORDRE, metaParId, estAccessible, scelle, essaieCle, chapitreParId } from "../donnees/chapitres/index.js?v=20261011k";
+import { urlOuPlaceholder, svgManquant } from "../moteur/placeholder.js?v=20261011k";
+import { DECORS } from "../donnees/decors.js?v=20261011k";
+import { volumeMusique } from "../moteur/audio.js?v=20261011k";
 
 const $ = id => document.getElementById(id);
 const ecran = () => $("ecran");
@@ -52,8 +52,18 @@ export async function ecranTitre() {
   if (metaTheme) metaTheme.content = "#f3f0ea";
 
   const fond = await urlOuPlaceholder(DECORS["ecran-titre"].src, "La placette", "16/9");
-  const reprise = aUneSauvegarde() && etat.chapitre;
-  const meta = reprise ? metaParId(etat.chapitre) : null;
+  // Progression lue EN MEMOIRE, pas dans localStorage : `sauver()` est differe
+  // de 120 ms, donc juste apres un effacement l'ecran s'affichait avant
+  // l'ecriture, croyait n'avoir aucune partie, et proposait « Commencer » —
+  // qui relancait le chapitre 0 par-dessus le verrou du mur.
+  const commence = etat.chapitresFinis.length > 0 || !!etat.chapitre;
+  const enCours = etat.chapitre && chapitreParId(etat.chapitre)
+    && !etat.chapitresFinis.includes(etat.chapitre)
+    ? metaParId(etat.chapitre) : null;
+  // le premier chapitre qui reste a lire — c'est exactement ou `reprendre()` ira
+  const suite = enCours || ORDRE.find(c => chapitreParId(c.id)
+    && !etat.chapitresFinis.includes(c.id)
+    && estAccessible(c.id, etat.chapitresFinis, etat.flags));
 
   montrer(`
     <div class="affiche">
@@ -71,9 +81,13 @@ export async function ecranTitre() {
 
       <div class="affiche__bas">
         <nav class="affiche__menu">
-          ${reprise ? `<button class="affiche__lien affiche__lien--principal" data-act="reprendre">
-              Reprendre — ${echappe(meta ? meta.titre : "")}
-            </button>` : `<button class="affiche__lien affiche__lien--principal" data-act="nouveau">Commencer</button>`}
+          ${!commence
+            ? `<button class="affiche__lien affiche__lien--principal" data-act="nouveau">Commencer</button>`
+            : suite
+              ? `<button class="affiche__lien affiche__lien--principal" data-act="reprendre">
+                  ${enCours ? "Reprendre" : "Continuer"} — ${echappe(suite.titre)}
+                </button>`
+              : `<button class="affiche__lien affiche__lien--principal" data-act="chapitres">Chapitres</button>`}
           <button class="affiche__lien" data-act="chapitres">Chapitres</button>
           <button class="affiche__lien" data-act="galerie">Souvenirs</button>
           <button class="affiche__lien" data-act="journal">Journal</button>

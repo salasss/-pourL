@@ -10,9 +10,9 @@
    « Regarder » les lui donne directement.
    ============================================================ */
 
-import { etat, aFlag } from "./etat.js?v=20261011i";
-import { ACTIONS, VEILLES } from "../donnees/veilles.js?v=20261011i";
-import { cacherBoite } from "../ui/dialogue.js?v=20261011i";
+import { etat, aFlag } from "./etat.js?v=20261011k";
+import { ACTIONS, VEILLES } from "../donnees/veilles.js?v=20261011k";
+import { cacherBoite } from "../ui/dialogue.js?v=20261011k";
 
 let els = null;
 

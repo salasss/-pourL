@@ -2,16 +2,16 @@
    MAIN — assemblage et boucle de jeu
    ============================================================ */
 
-import { etat, charger, sauver, VERSION_JEU } from "./moteur/etat.js?v=20261011i";
-import { ORDRE } from "./donnees/chapitres/index.js?v=20261011i";
-import { initScene, viderSprites } from "./moteur/scene.js?v=20261011i";
-import { initAudio, arreterMusique } from "./moteur/audio.js?v=20261011i";
-import { initDialogue, brancherInteractions, cacherBoite } from "./ui/dialogue.js?v=20261011i";
-import { initVeille } from "./moteur/veille.js?v=20261011i";
-import { initHud, majHud, afficherHud } from "./ui/hud.js?v=20261011i";
-import * as ecrans from "./ui/ecrans.js?v=20261011i";
-import { jouerChapitre as lireChapitre, stopper } from "./moteur/directeur.js?v=20261011i";
-import { chapitreParId } from "./donnees/chapitres/index.js?v=20261011i";
+import { etat, charger, sauver, VERSION_JEU } from "./moteur/etat.js?v=20261011k";
+import { ORDRE } from "./donnees/chapitres/index.js?v=20261011k";
+import { initScene, viderSprites } from "./moteur/scene.js?v=20261011k";
+import { initAudio, arreterMusique } from "./moteur/audio.js?v=20261011k";
+import { initDialogue, brancherInteractions, cacherBoite } from "./ui/dialogue.js?v=20261011k";
+import { initVeille } from "./moteur/veille.js?v=20261011k";
+import { initHud, majHud, afficherHud } from "./ui/hud.js?v=20261011k";
+import * as ecrans from "./ui/ecrans.js?v=20261011k";
+import { jouerChapitre as lireChapitre, stopper } from "./moteur/directeur.js?v=20261011k";
+import { chapitreParId, estAccessible } from "./donnees/chapitres/index.js?v=20261011k";
 
 let enCours = false;
 
@@ -32,8 +32,17 @@ const actions = {
   },
 
   async reprendre() {
-    const id = etat.chapitre || "ch00";
-    if (!chapitreParId(id)) return actions.nouvellePartie();
+    let id = etat.chapitre;
+    // Sans chapitre en cours — ou si celui-ci est deja termine — on reprend
+    // au premier qui reste a lire. Retomber sur "ch00" rouvrait l'histoire
+    // vraie par-dessus le verrou du mur, juste apres un effacement.
+    if (!id || !chapitreParId(id) || etat.chapitresFinis.includes(id)) {
+      const suite = ORDRE.find(c => chapitreParId(c.id)
+        && !etat.chapitresFinis.includes(c.id)
+        && estAccessible(c.id, etat.chapitresFinis, etat.flags));
+      if (!suite) return ecrans.ecranChapitres();   // tout est lu
+      return lancer(suite.id, 0);
+    }
     await lancer(id, etat.index || 0);
   },
 

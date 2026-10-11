@@ -152,7 +152,7 @@
 .hud {
   position: absolute;
   top: 0; left: 0; right: 0;
-  z-index: 20;
+  z-index: 23;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -338,7 +338,11 @@
 .scene__avancer {
   position: absolute;
   inset: 0;
-  z-index: 22;
+  /* Sous le HUD (23). Cette zone couvre toute la scene : au-dessus, elle
+     avalait le clic sur le bouton menu. Meme famille de bug que celui qui
+     figeait le jeu au premier plein ecran — une couche invisible qui passe
+     devant quelque chose de cliquable. */
+  z-index: 18;
   background: transparent;
 }
 .scene__avancer[hidden] { display: none !important; }
