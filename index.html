@@ -12,11 +12,12 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/reset.css?v=20261011c">
-<link rel="stylesheet" href="css/jetons.css?v=20261011c">
-<link rel="stylesheet" href="css/animations.css?v=20261011c">
-<link rel="stylesheet" href="css/moteur.css?v=20261011c">
-<link rel="stylesheet" href="css/ecrans.css?v=20261011c">
+<link rel="stylesheet" href="css/reset.css?v=20261011d">
+<link rel="stylesheet" href="css/jetons.css?v=20261011d">
+<link rel="stylesheet" href="css/animations.css?v=20261011d">
+<link rel="stylesheet" href="css/moteur.css?v=20261011d">
+<link rel="stylesheet" href="css/ecrans.css?v=20261011d">
+<link rel="stylesheet" href="css/veille.css?v=20261011d">
 </head>
 <body>
 
@@ -82,6 +83,29 @@
       <div class="choix__liste" id="choix-liste"></div>
     </div>
 
+    <!-- veille : l'affrontement au tour par tour de l'arc Cendres -->
+    <div class="veille" id="veille" hidden>
+      <div class="veille__adversaire">
+        <span class="veille__nom" id="veille-nom"></span>
+        <span class="veille__jauge veille__jauge--emprise">
+          <i id="veille-emprise"></i>
+        </span>
+        <span class="veille__chiffre" id="veille-emprise-txt"></span>
+      </div>
+
+      <p class="veille__journal" id="veille-journal" aria-live="polite"></p>
+
+      <div class="veille__barre">
+        <span class="veille__etiquette">mémoire</span>
+        <span class="veille__jauge veille__jauge--memoire">
+          <i id="veille-memoire"></i>
+        </span>
+        <span class="veille__chiffre" id="veille-memoire-txt"></span>
+      </div>
+
+      <div class="veille__actions" id="veille-actions"></div>
+    </div>
+
     <!-- zone cliquable pour avancer -->
     <button class="scene__avancer" id="avancer" aria-label="Continuer"></button>
   </div>
@@ -100,6 +124,6 @@
 
 </div>
 
-<script type="module" src="js/main.js?v=20261011c"></script>
+<script type="module" src="js/main.js?v=20261011d"></script>
 </body>
 </html>

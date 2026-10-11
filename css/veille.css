@@ -1,0 +1,162 @@
+/* ============================================================
+   VEILLE — l'affrontement au tour par tour de l'arc Cendres.
+
+   Aucune couleur en dur : tout passe par les jetons, donc le
+   panneau suit la peau courante sans une ligne de plus.
+   ============================================================ */
+
+.veille {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  z-index: 26;                    /* au-dessus de la boîte (25) */
+  display: flex;
+  flex-direction: column;
+  gap: var(--e-1);
+  padding: var(--e-2) var(--e-5) var(--e-3);
+  background: var(--panneau);
+  border-top: 1px solid var(--trait-fort);
+  animation: veille-entre var(--d-std) var(--courbe) both;
+}
+
+@keyframes veille-entre {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ---------- l'adversaire ---------- */
+
+.veille__adversaire,
+.veille__barre {
+  display: flex;
+  align-items: center;
+  gap: var(--e-3);
+}
+
+.veille__nom {
+  font-family: var(--titre);
+  font-size: var(--t-md);
+  color: var(--encre);
+  white-space: nowrap;
+}
+
+.veille__etiquette {
+  font-family: var(--sans);
+  font-size: var(--t-xs);
+  letter-spacing: .12em;
+  text-transform: lowercase;
+  color: var(--encre-douce);
+  white-space: nowrap;
+}
+
+.veille__jauge {
+  flex: 1;
+  height: 6px;
+  background: var(--trait);
+  overflow: hidden;
+}
+
+.veille__jauge > i {
+  display: block;
+  height: 100%;
+  width: 100%;
+  transform-origin: left center;
+  transition: scale var(--d-std) var(--courbe), background var(--d-std);
+}
+
+.veille__jauge--emprise > i { background: var(--alerte); }
+.veille__jauge--memoire > i { background: var(--regard); }
+.veille__jauge--memoire > i.bas { background: var(--alerte); }
+
+.veille__chiffre {
+  font-family: var(--sans);
+  font-size: var(--t-xs);
+  color: var(--encre-douce);
+  min-width: 3.4em;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- ce qui vient de se passer ---------- */
+
+.veille__journal {
+  margin: 0;
+  min-height: 2.6em;
+  font-family: var(--corps);
+  font-size: var(--t-sm);
+  line-height: 1.4;
+  color: var(--encre);
+}
+
+.veille__journal em {
+  color: var(--accent-vif);
+  font-style: italic;
+}
+
+/* ---------- les actions ---------- */
+
+.veille__actions {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(146px, 1fr));
+  gap: var(--e-2);
+}
+
+.veille-action {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--e-2);
+  padding: var(--e-2) var(--e-3);
+  text-align: left;
+  font: inherit;
+  color: var(--encre);
+  background: transparent;
+  border: 1px solid var(--trait-fort);
+  border-radius: var(--r-md);
+  cursor: pointer;
+  transition: background var(--d-micro), border-color var(--d-micro),
+              color var(--d-micro);
+}
+
+.veille-action:hover:not(:disabled),
+.veille-action:focus-visible {
+  background: var(--fond-profond);
+  border-color: var(--accent);
+  outline: none;
+}
+
+.veille-action:disabled {
+  opacity: .34;
+  cursor: not-allowed;
+}
+
+.veille-action__nom {
+  font-family: var(--corps);
+  font-size: var(--t-sm);
+}
+
+.veille-action__mot {
+  font-family: var(--sans);
+  font-size: var(--t-xs);
+  letter-spacing: .1em;
+  color: var(--accent-vif);
+}
+
+.veille-action:disabled .veille-action__mot { color: var(--encre-douce); }
+
+/* ---------- téléphone ---------- */
+
+@media (max-width: 640px) {
+  .veille {
+    padding: var(--e-2) var(--e-3) var(--e-3);
+    gap: var(--e-1);
+  }
+  .veille__actions { grid-template-columns: repeat(2, 1fr); }
+  .veille__nom     { font-size: var(--t-base); }
+  .veille__journal { font-size: var(--t-xs); min-height: 3.2em; }
+  .veille-action   { flex-direction: column; align-items: flex-start; gap: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .veille { animation: none; }
+  .veille__jauge > i { transition: none; }
+}

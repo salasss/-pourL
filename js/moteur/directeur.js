@@ -9,6 +9,7 @@ import {
 } from "./etat.js";
 import * as scene from "./scene.js";
 import * as audio from "./audio.js";
+import { jouerVeille } from "./veille.js";
 import { replique, proposerChoix, cacherBoite, attendreClic } from "../ui/dialogue.js";
 import { majHud, toastCarte, toastMot, titreChapitre } from "../ui/hud.js";
 import { PERSONNAGES } from "../donnees/personnages.js";
@@ -252,6 +253,23 @@ async function executer(n, noeuds) {
       await scene.compter(n.liste || ["1"], n.aide, attendreClic);
       cacherBoite(false);
       return;
+
+    case "veille": {
+      // L'issue n'arrete jamais le chapitre : on pose un drapeau et on
+      // laisse l'ecriture decider de la suite. Perdre coute un souvenir,
+      // pas la partie.
+      const r = await jouerVeille(n.id);
+      // deux drapeaux booleens : `flag` teste la veracite, une chaine
+      // "echec" serait donc vraie elle aussi. On separe.
+      appliquerEffets({ flags: {
+        ["veille_" + n.id]: r.issue === "victoire",
+        ["veille_" + n.id + "_perdue"]: r.issue === "echec"
+      } });
+      majHud();
+      const vers = r.issue === "victoire" ? n.siVictoire : n.siEchec;
+      if (vers !== undefined) return { aller: vers };
+      return;
+    }
 
     case "flag":
       appliquerEffets({ flags: n.flags });

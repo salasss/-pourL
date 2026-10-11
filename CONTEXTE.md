@@ -57,6 +57,7 @@ js/
     etat.js         état global + sauvegarde localStorage + VERSION_JEU
     directeur.js    exécute les nœuds d'un chapitre — LA table des types y est
     scene.js        décors, sprites, voiles, cartons, le compte interactif
+    veille.js       la boucle de tour des combats (arc Cendres)
     dialogue.js*    (dans ui/) machine à écrire + choix
     audio.js        musique et bruitages, silencieux si un fichier manque
     placeholder.js  toute image absente devient un SVG propre
@@ -64,7 +65,7 @@ js/
     hud.js          barre du haut : cœur OU lexique+rumeur selon la peau
     ecrans.js       titre, mur de chapitres, galerie, journal, réglages, sceau
   donnees/
-    personnages · decors · cartes · souvenirs · musiques
+    personnages · decors · cartes · souvenirs · musiques · veilles
     chapitres/      index.js + un fichier par chapitre
 assets/             decors · sprites · cg · cartes · ui · audio
 ```
@@ -98,13 +99,14 @@ Conditions déclaratives (jamais d'`eval`) : `flag`, `flagFaux`, `compliciteMin/
 
 ### Reste à faire
 
-**2 fichiers sur 82**, plus deux sprites à refaire. Prompts prêts dans
+**5 fichiers sur 85**, plus deux sprites à refaire. Prompts prêts dans
 `A-FAIRE-MAINTENANT.md` (local).
 
 | Quoi | Lot | Effet aujourd'hui |
 |---|---|---|
 | `kefrida-cendres` — dernier décor de l'arc | 36 | placeholder |
 | `carte-17-nom` — la carte finale | 41 | galerie à 16/17 |
+| 3 sprites d'adversaires (Chuchotis, Procession, Greffier) | 42-44 | placeholder dans les combats |
 | refaire `epuisee` + `marquee` | 21C | cadrées en pied : tête 38 pour cent trop petite |
 
 Plus **la dédicace de l'écran-titre** (`js/ui/ecrans.js`, fonction `ecranTitre`) :
@@ -146,6 +148,29 @@ Aucun game over : le mauvais choix est juste un peu triste.
    Première structure non linéaire du jeu.
 4. **Le compte à sept** (✦3). Nœud `compter` : le joueur clique sept fois,
    un chiffre par clic, avant que le cadenas tombe.
+5. **Les Veilles** — trois affrontements au tour par tour, un par chapitre
+   (`js/donnees/veilles.js`, moteur dans `js/moteur/veille.js`).
+
+   Deux inversions les font tenir dans l'histoire : **elle n'a pas de points de
+   vie, elle a de la Mémoire** — l'adversaire ne la blesse pas, il l'efface ;
+   et **l'adversaire n'a pas de points de vie non plus**, il a une Emprise qu'on
+   desserre. Perdre n'est donc jamais mourir : à zéro, elle oublie quelque
+   chose, la Rumeur monte, et le chapitre continue en moins bien.
+
+   **Ses sorts sont les quatre mots du Lexique.** En ✦1 elle n'en a aucun et se
+   bat avec des intentions muettes (Pousser, Retenir, Se taire) ; en ✦3 elle a
+   les quatre. Le système de combat raconte la même chose que le chapitre.
+
+   | Veille | Chapitre | Ce qu'elle enseigne |
+   |---|---|---|
+   | Le Chuchotis | ✦1 | se taire ne suffit plus : il faut agir |
+   | La Procession | ✦2 | **frapper ne donne rien** — ce sont des gens, on ne peut que les voir |
+   | Le Greffier | ✦3 | il classe une de tes actions par tour ; seul le sceau l'atteint |
+
+   Chaque fragment pose un drapeau (`mot_chaleur`, `mot_mur`, `mot_ombre`,
+   `mot_boite`) qui débloque l'action correspondante. Après coup, `veille_<id>`
+   vaut vrai en cas de victoire et `veille_<id>_perdue` en cas d'échec — deux
+   booléens distincts, parce qu'une chaîne `"echec"` serait vraie elle aussi.
 
 ---
 
@@ -183,7 +208,13 @@ Aucun game over : le mauvais choix est juste un peu triste.
     décor était un placeholder uni ; dès qu'une vraie bibliothèque est passée
     derrière, on voyait les tiroirs à travers elle. Vérifier l'alpha moyen du
     sujet : il doit être proche de 255, pas de 205.
-11. **Toutes les planches de sprites doivent avoir le même cadrage.** Le moteur
+11. **Un combat se vérifie en le simulant, pas en le relisant.** Deux Veilles
+    étaient injouables à l'écriture : le Greffier classait `Sceller` au premier
+    tour — la seule action qui l'atteint — et la Procession n'était gagnable
+    que si le joueur avait pris le mot L'OMBRE, ce que la route ne garantit pas.
+    Un simulateur sans DOM qui rejoue les règles du moteur les a trouvées en une
+    passe. Refaire tourner ce test après **toute** retouche d'équilibrage.
+12. **Toutes les planches de sprites doivent avoir le même cadrage.** Le moteur
     les affiche à hauteur fixe et les ancre en bas : une planche générée plus
     serrée donne une tête plus grosse à l'écran. Mesure de contrôle — largeur de
     la tête divisée par la hauteur de l'image, qui doit valoir **0,27**. Corriger

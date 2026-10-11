@@ -112,6 +112,7 @@ export default {
     { type: "narration", texte: "La pierre chauffe sa main, puis son bras, puis quelque chose derrière les côtes qui n'avait plus chauffé depuis longtemps." },
     { type: "narration", texte: "LA CHALEUR. Premier fragment. Quelque part dans le souvenir-ancre, une journée redevient brûlante." },
     { type: "flag", flags: { frag_chaleur: true } },
+    { type: "flag", flags: { mot_chaleur: true } },
     { type: "lexique", valeur: 1 },
     { type: "sfx", son: "carte" },
     { type: "aller", label: "retour" },
@@ -153,6 +154,7 @@ export default {
     { type: "narration", texte: "Quand elle retire sa main, la pierre garde son empreinte — creusée, nette, comme si elle aussi avait existé assez fort pour abîmer un mur." },
     { type: "narration", texte: "LE MUR. Deuxième fragment. Quelque part dans le souvenir-ancre, un mur retrouve son grain sous une paume." },
     { type: "flag", flags: { frag_mur: true } },
+    { type: "flag", flags: { mot_mur: true } },
     { type: "lexique", valeur: 1 },
     { type: "sfx", son: "carte" },
     { type: "aller", label: "retour" },
@@ -203,6 +205,7 @@ export default {
 
     { type: "narration", texte: "L'OMBRE. Troisième fragment. Quelque part dans le souvenir-ancre, une ombre fraîche s'étend sur deux personnes assises." },
     { type: "flag", flags: { frag_ombre: true } },
+    { type: "flag", flags: { mot_ombre: true } },
     { type: "lexique", valeur: 1 },
     { type: "sfx", son: "carte" },
     { type: "aller", label: "retour" },
@@ -238,6 +241,40 @@ export default {
           ] }
       ] },
 
+
+    /* ---------- La Procession : un combat qui refuse d'en être un ---------- */
+
+    { type: "si", condition: { et: [{ flag: "retour2" }, { flagFaux: "procession_faite" }] },
+      alors: [
+        { type: "flag", flags: { procession_faite: true } },
+        { type: "attendre", duree: 1200 },
+        { type: "narration", texte: "Elle s'arrête au milieu du chemin de ronde. En bas, dans la rue qui descend vers le port, il y a du monde. À cette heure-ci, il ne devrait y avoir personne." },
+        { type: "dialogue", perso: "lamia-cendres", pose: "pensive", texte: "Ils descendent. Ils descendent tous dans le même sens." },
+
+        { type: "perso", id: "lamia-cendres", pose: "determinee", position: "gauche" },
+        { type: "perso", id: "ennemi-procession", pose: "neutre", position: "droite" },
+        { type: "attendre", duree: 900 },
+
+        { type: "veille", id: "procession" },
+        { type: "retirerPerso", id: "ennemi-procession" },
+        { type: "perso", id: "lamia-cendres", pose: "neutre", position: "centre" },
+
+        { type: "si", condition: { flag: "veille_procession" },
+          alors: [
+            { type: "dialogue", perso: "lamia-cendres", pose: "triste", texte: "Je n'ai sauvé personne." },
+            { type: "dialogue", perso: "voix", texte: "Vu." },
+            { type: "narration", texte: "Elle met un temps à comprendre que c'est un mot, et que ce mot veut dire : je les ai vus aussi." },
+            { type: "rumeur", valeur: 1 }
+          ],
+          sinon: [
+            { type: "narration", texte: "Quand elle se détache de la file, elle est au bas de la rue et elle ne sait plus depuis combien de temps elle marche." },
+            { type: "dialogue", perso: "lamia-cendres", pose: "epuisee", texte: "…j'allais quelque part." },
+            { type: "pensee", texte: "Oui. Tu allais quelque part. Je m'en souviens pour toi — c'est tout ce que je sais encore faire." },
+            { type: "rumeur", valeur: 2 }
+          ] },
+        { type: "attendre", duree: 1200 }
+      ] },
+
     { type: "aller", label: "carrefour" },
 
     /* ================== KEFRIDA — la boîte ================== */
@@ -264,6 +301,7 @@ export default {
     { type: "narration", texte: "Elle pose la main dessus. Le métal est chaud. Dans un pays où tout est tiède comme la cendre, la boîte, elle, est chaude comme une journée de mai." },
     { type: "narration", texte: "LA BOÎTE. Quatrième fragment. L'ancre est complète — la journée trop chaude, le mur, l'ombre, et elle." },
     { type: "flag", flags: { frag_boite: true } },
+    { type: "flag", flags: { mot_boite: true } },
     { type: "lexique", valeur: 1 },
     { type: "sfx", son: "carte" },
 

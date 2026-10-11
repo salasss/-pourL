@@ -138,6 +138,30 @@ export default {
 
     { type: "label", nom: "n_suite" },
 
+    /* ---------- La première veille : tu n'as pas de mots ---------- */
+
+    { type: "attendre", duree: 1200 },
+    { type: "narration", texte: "Elles sortent de la bibliothèque par la porte basse. Dehors, la cendre est plus épaisse qu'en entrant." },
+    { type: "narration", texte: "Et quelque part sous les remparts, très bas, quelque chose s'est mis à réciter." },
+
+    { type: "perso", id: "lamia-cendres", pose: "determinee", position: "gauche" },
+    { type: "perso", id: "ennemi-chuchotis", pose: "neutre", position: "droite" },
+    { type: "attendre", duree: 900 },
+
+    { type: "veille", id: "chuchotis" },
+    { type: "retirerPerso", id: "ennemi-chuchotis" },
+    { type: "perso", id: "lamia-cendres", pose: "neutre", position: "centre" },
+
+    { type: "si", condition: { flag: "veille_chuchotis" },
+      alors: [
+        { type: "pensee", texte: "Tu n'as rien dit. Tu ne sais toujours pas dire. Mais quelque chose, en face, a cessé de parler — et c'est toi qui l'as fait taire." }
+      ],
+      sinon: [
+        { type: "pensee", texte: "Ça s'est arrêté tout seul, repu. Tu n'y es pour rien. Elle a perdu quelque chose cette nuit et tu ne sauras jamais quoi — c'est la règle : ce qui part emporte aussi son nom." },
+        { type: "rumeur", valeur: 1 }
+      ] },
+    { type: "attendre", duree: 1000 },
+
     /* ---------- 5. La marque ---------- */
 
     { type: "decor", image: "remparts-nuit", transition: "fondu", duree: 1300 },

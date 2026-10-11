@@ -7,6 +7,7 @@ import { ORDRE } from "./donnees/chapitres/index.js";
 import { initScene, viderSprites } from "./moteur/scene.js";
 import { initAudio, arreterMusique } from "./moteur/audio.js";
 import { initDialogue, brancherInteractions, cacherBoite } from "./ui/dialogue.js";
+import { initVeille } from "./moteur/veille.js";
 import { initHud, majHud, afficherHud } from "./ui/hud.js";
 import * as ecrans from "./ui/ecrans.js";
 import { jouerChapitre as lireChapitre, stopper } from "./moteur/directeur.js";
@@ -83,6 +84,7 @@ function demarrer() {
   initAudio();
   initHud(ouvrirMenu);
   brancherInteractions();
+  initVeille();
   ecrans.initEcrans(actions);
 
   charger();

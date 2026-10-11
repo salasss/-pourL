@@ -125,6 +125,31 @@ export default {
     /* ---------- 5. L'inclassable ---------- */
 
     { type: "label", nom: "s_reponse" },
+
+    /* ---------- Il ne frappe pas : il range. Le combat est la pression,
+       l'argument reste la réponse — il arrive juste après. ---------- */
+
+    { type: "attendre", duree: 1200 },
+    { type: "narration", texte: "Le Greffier ne hausse pas le ton. Il ouvre un registre, mouille son pouce, et cherche la bonne page comme on cherche un dossier en retard." },
+
+    { type: "perso", id: "lamia-cendres", pose: "determinee", position: "gauche" },
+    { type: "perso", id: "ennemi-greffier", pose: "neutre", position: "droite" },
+    { type: "attendre", duree: 900 },
+
+    { type: "veille", id: "greffier" },
+    { type: "retirerPerso", id: "ennemi-greffier" },
+    { type: "perso", id: "lamia-cendres", pose: "neutre", position: "centre" },
+
+    { type: "si", condition: { flag: "veille_greffier" },
+      alors: [
+        { type: "narration", texte: "Il s'arrête, le doigt encore posé sur une ligne. Quelque chose, dans son registre, refuse de se laisser écrire." }
+      ],
+      sinon: [
+        { type: "narration", texte: "Quand il referme le registre, elle a les mains vides et la tête pleine de trous. Elle ne se rappelle plus la moitié du chemin qu'elle a fait pour venir." },
+        { type: "dialogue", perso: "lamia-cendres", pose: "epuisee", texte: "…il m'en reste assez. Il m'en reste assez pour une question." },
+        { type: "rumeur", valeur: 1 }
+      ] },
+    { type: "attendre", duree: 1100 },
     { type: "attendre", duree: 1400 },
     { type: "perso", id: "lamia-cendres", pose: "determinee", position: "centre" },
 

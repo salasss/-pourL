@@ -66,6 +66,16 @@ export const PERSONNAGES = {
   },
 
 
+  /* ---- les adversaires des Veilles ----
+     Ils passent par le meme systeme que Lamia : meme respiration, meme
+     ombre, meme placeholder quand le fichier manque. */
+  "ennemi-chuchotis":  { nom: "Le Chuchotis",  position: "droite",
+                         poses: { neutre: S + "ennemi-chuchotis.webp" } },
+  "ennemi-procession": { nom: "La Procession", position: "droite",
+                         poses: { neutre: S + "ennemi-procession.webp" } },
+  "ennemi-greffier":   { nom: "Le Greffier",   position: "droite",
+                         poses: { neutre: S + "ennemi-greffier.webp" } },
+
   /* Voix sans sprite. Zilasene a une scene au chapitre 1 et n'apparait
      nulle part ailleurs : plutot qu'un placeholder gris, on le traite
      comme Kenza — on l'entend, on ne le voit pas. */
