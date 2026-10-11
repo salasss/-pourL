@@ -98,18 +98,26 @@ Conditions déclaratives (jamais d'`eval`) : `flag`, `flagFaux`, `compliciteMin/
 
 ### Reste à faire
 
-| Quoi | Où |
-|---|---|
-**13 fichiers, et rien de plus** — l'inventaire est à jour (voir piège 9).
+**19 fichiers sur 83.** Tous les prompts sont dans `A-COPIER-COLLER.md` (local).
 
-| Quoi | Où |
-|---|---|
-| **7 décors Cendres** — l'arc bonus tourne **entièrement** sur des placeholders | lots 33-39 de `A-COPIER-COLLER.md` (local) |
-| `cendres.mp3` — la musique de l'arc bonus | prompt S6 de `PROMPTS-AUDIO.md` (local) |
-| Cartes 14 (ailes de fer), 15 (le tiroir), 16 (la Rumeur), 17 (le Nom) | `A-COPIER-COLLER.md` |
-| **1 sprite : Zilasène** — Kenza est nommée dans le texte, jamais affichée | lot 20 |
-| 6 expressions Cendres (triste, surprise, sourire, pensive, gênée, regard) | lot 21 — cosmétique, elles retombent sur le sprite le plus proche |
-| **La dédicace de l'écran-titre** | `js/ui/ecrans.js`, fonction `ecranTitre` — **à écrire par Salas lui-même**, c'est la seule phrase du jeu qui ne doit pas venir d'une IA |
+| Quoi | Combien | Lot | Effet aujourd'hui |
+|---|---|---|---|
+| Décors de l'arc Cendres | **7** | 33-39 | placeholder — l'arc bonus n'a **aucune** image |
+| Expressions Cendres | **6** | 21A, 21B | **la mauvaise émotion s'affiche** : triste → épuisée, gênée → neutre |
+| Cartes 14 à 17 | **4** | 40, 41 | galerie bloquée à 13/17 |
+| Sprite de Zilasène | 1 | 20 | placeholder, une scène au chapitre 1 |
+| `cendres.mp3` | 1 | S6 de `PROMPTS-AUDIO.md` | l'arc bonus est muet |
+
+Plus **la dédicace de l'écran-titre** (`js/ui/ecrans.js`, fonction `ecranTitre`) :
+celle qui s'y trouve a été écrite par une IA, c'est la seule phrase du jeu qui
+devrait venir de Salas lui-même.
+
+Piège de comptage : les 6 expressions Cendres **ont un repli**, donc un contrôle
+naïf les déclare « présentes ». Le fichier n'existe pas pour autant, et c'est une
+autre émotion qui s'affiche. Compter les chemins, pas les replis.
+
+Kenza n'a pas de sprite et n'en a pas besoin : elle est nommée six fois dans le
+texte et n'apparaît jamais à l'écran.
 
 Rien de tout ça n'est bloquant : les images manquantes deviennent des
 placeholders propres, le son manquant reste silencieux.
@@ -198,7 +206,7 @@ jeu lui-même, on ne peut rien y faire.
 
 Le numéro de build est affiché **en bas de l'écran Réglages** et dans la console
 du navigateur (`pourL — build …`). Il vit dans `js/moteur/etat.js`
-(`VERSION_JEU`), aujourd'hui `2026.09.20c`. Si l'écran ne montre pas ce qu'on vient de coder :
+(`VERSION_JEU`), aujourd'hui `2026.10.11a`. Si l'écran ne montre pas ce qu'on vient de coder :
 **Ctrl + Shift + R**, puis comparer le numéro.
 
 Les feuilles de style et `main.js` portent un `?v=` dans `index.html` — le bumper
