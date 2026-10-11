@@ -98,26 +98,26 @@ Conditions déclaratives (jamais d'`eval`) : `flag`, `flagFaux`, `compliciteMin/
 
 ### Reste à faire
 
-**19 fichiers sur 83.** Tous les prompts sont dans `A-COPIER-COLLER.md` (local).
+**3 fichiers sur 83**, plus deux sprites à refaire. Prompts prêts dans
+`A-FAIRE-MAINTENANT.md` (local).
 
-| Quoi | Combien | Lot | Effet aujourd'hui |
-|---|---|---|---|
-| Décors de l'arc Cendres | **7** | 33-39 | placeholder — l'arc bonus n'a **aucune** image |
-| Expressions Cendres | **6** | 21A, 21B | **la mauvaise émotion s'affiche** : triste → épuisée, gênée → neutre |
-| Cartes 14 à 17 | **4** | 40, 41 | galerie bloquée à 13/17 |
-| Sprite de Zilasène | 1 | 20 | placeholder, une scène au chapitre 1 |
-| `cendres.mp3` | 1 | S6 de `PROMPTS-AUDIO.md` | l'arc bonus est muet |
+| Quoi | Lot | Effet aujourd'hui |
+|---|---|---|
+| `kefrida-cendres` — dernier décor de l'arc | 36 | placeholder |
+| `carte-17-nom` — la carte finale | 41 | galerie à 16/17 |
+| `zilasene` | 20 | placeholder, une scène au chapitre 1 |
+| refaire `epuisee` + `marquee` | 21C | cadrées en pied : tête 38 pour cent trop petite |
 
 Plus **la dédicace de l'écran-titre** (`js/ui/ecrans.js`, fonction `ecranTitre`) :
 celle qui s'y trouve a été écrite par une IA, c'est la seule phrase du jeu qui
 devrait venir de Salas lui-même.
 
-Piège de comptage : les 6 expressions Cendres **ont un repli**, donc un contrôle
-naïf les déclare « présentes ». Le fichier n'existe pas pour autant, et c'est une
-autre émotion qui s'affiche. Compter les chemins, pas les replis.
+Piège de comptage : une pose qui **a un repli** est déclarée « présente » par un
+contrôle naïf. Le fichier n'existe pas pour autant, et c'est une autre émotion qui
+s'affiche. Compter les chemins, pas les replis.
 
-Kenza n'a pas de sprite et n'en a pas besoin : elle est nommée six fois dans le
-texte et n'apparaît jamais à l'écran.
+Kenza n'a pas de sprite et n'en a pas besoin : nommée six fois dans le texte,
+jamais à l'écran.
 
 Rien de tout ça n'est bloquant : les images manquantes deviennent des
 placeholders propres, le son manquant reste silencieux.
@@ -177,6 +177,16 @@ Aucun game over : le mauvais choix est juste un peu triste.
 9. **Aucune entrée déclarée « pour plus tard ».** Un décor que nul chapitre
    n'appelle fait mentir l'inventaire des images restantes : dix entrées mortes
    gonflaient le décompte de 13 à 30.
+10. **Un sprite doit sortir du détourage pleinement opaque.** Les quatre premiers
+    sprites Cendres avaient tout le corps à ~80 % d'alpha. Invisible tant que le
+    décor était un placeholder uni ; dès qu'une vraie bibliothèque est passée
+    derrière, on voyait les tiroirs à travers elle. Vérifier l'alpha moyen du
+    sujet : il doit être proche de 255, pas de 205.
+11. **Toutes les planches de sprites doivent avoir le même cadrage.** Le moteur
+    les affiche à hauteur fixe et les ancre en bas : une planche générée plus
+    serrée donne une tête plus grosse à l'écran. Mesure de contrôle — largeur de
+    la tête divisée par la hauteur de l'image, qui doit valoir **0,27**. Corriger
+    en réduisant le contenu et en le recollant en bas d'un canevas de 1050.
 
 ---
 
@@ -206,7 +216,7 @@ jeu lui-même, on ne peut rien y faire.
 
 Le numéro de build est affiché **en bas de l'écran Réglages** et dans la console
 du navigateur (`pourL — build …`). Il vit dans `js/moteur/etat.js`
-(`VERSION_JEU`), aujourd'hui `2026.10.11a`. Si l'écran ne montre pas ce qu'on vient de coder :
+(`VERSION_JEU`), aujourd'hui `2026.10.11b`. Si l'écran ne montre pas ce qu'on vient de coder :
 **Ctrl + Shift + R**, puis comparer le numéro.
 
 Les feuilles de style et `main.js` portent un `?v=` dans `index.html` — le bumper
