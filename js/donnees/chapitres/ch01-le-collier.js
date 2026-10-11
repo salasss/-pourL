@@ -113,7 +113,6 @@ export default {
     ]},
 
     { type: "label", nom: "z_plan" },
-    { type: "perso", id: "zilasene", pose: "neutre", position: "gauche" },
     { type: "dialogue", perso: "zilasene", texte: "Attack on quoi ?" },
     { type: "pensee", texte: "…" },
     { type: "dialogue", perso: "zilasene", texte: "C'est un film ? C'est quoi, c'est un truc de jeu vidéo ?" },
@@ -121,7 +120,6 @@ export default {
     { type: "pensee", texte: "Le plan est mort. Il est mort si vite qu'il n'a même pas eu le temps d'être un plan." },
     { type: "dialogue", perso: "zilasene", texte: "Attends, envoie-moi le nom en message, je vais regarder." },
     { type: "narration", texte: "Il ne regardera pas." },
-    { type: "retirerPerso", id: "zilasene" },
     { type: "souvenir", id: "sv-zilasene" },
     { type: "aller", label: "z_suite" },
 

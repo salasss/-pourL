@@ -65,9 +65,11 @@ export const PERSONNAGES = {
     }
   },
 
-  zilasene: { nom: "Zilasène", position: "gauche", poses: { neutre: S + "zilasene.webp" } },
 
-  /* voix sans sprite */
-  salas: { nom: "Salas", poses: {} },
-  voix:  { nom: "…",     poses: {} }
+  /* Voix sans sprite. Zilasene a une scene au chapitre 1 et n'apparait
+     nulle part ailleurs : plutot qu'un placeholder gris, on le traite
+     comme Kenza — on l'entend, on ne le voit pas. */
+  zilasene: { nom: "Zilasène", poses: {} },
+  salas:    { nom: "Salas",    poses: {} },
+  voix:     { nom: "…",        poses: {} }
 };

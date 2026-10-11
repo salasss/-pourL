@@ -98,14 +98,13 @@ Conditions déclaratives (jamais d'`eval`) : `flag`, `flagFaux`, `compliciteMin/
 
 ### Reste à faire
 
-**3 fichiers sur 83**, plus deux sprites à refaire. Prompts prêts dans
+**2 fichiers sur 82**, plus deux sprites à refaire. Prompts prêts dans
 `A-FAIRE-MAINTENANT.md` (local).
 
 | Quoi | Lot | Effet aujourd'hui |
 |---|---|---|
 | `kefrida-cendres` — dernier décor de l'arc | 36 | placeholder |
 | `carte-17-nom` — la carte finale | 41 | galerie à 16/17 |
-| `zilasene` | 20 | placeholder, une scène au chapitre 1 |
 | refaire `epuisee` + `marquee` | 21C | cadrées en pied : tête 38 pour cent trop petite |
 
 Plus **la dédicace de l'écran-titre** (`js/ui/ecrans.js`, fonction `ecranTitre`) :
@@ -116,8 +115,10 @@ Piège de comptage : une pose qui **a un repli** est déclarée « présente » 
 contrôle naïf. Le fichier n'existe pas pour autant, et c'est une autre émotion qui
 s'affiche. Compter les chemins, pas les replis.
 
-Kenza n'a pas de sprite et n'en a pas besoin : nommée six fois dans le texte,
-jamais à l'écran.
+**Kenza et Zilasène n'ont pas de sprite**, et c'est voulu : ce sont des voix,
+comme Salas. Zilasène avait une scène au chapitre 1 ; plutôt que de laisser un
+placeholder gris pour trois répliques, on l'entend sans le voir. Le motif est
+dans `personnages.js` — `poses: {}`.
 
 Rien de tout ça n'est bloquant : les images manquantes deviennent des
 placeholders propres, le son manquant reste silencieux.
@@ -216,7 +217,7 @@ jeu lui-même, on ne peut rien y faire.
 
 Le numéro de build est affiché **en bas de l'écran Réglages** et dans la console
 du navigateur (`pourL — build …`). Il vit dans `js/moteur/etat.js`
-(`VERSION_JEU`), aujourd'hui `2026.10.11b`. Si l'écran ne montre pas ce qu'on vient de coder :
+(`VERSION_JEU`), aujourd'hui `2026.10.11c`. Si l'écran ne montre pas ce qu'on vient de coder :
 **Ctrl + Shift + R**, puis comparer le numéro.
 
 Les feuilles de style et `main.js` portent un `?v=` dans `index.html` — le bumper
